@@ -36,14 +36,10 @@ existing tests.
 
 ## 3. Tablet and desktop layout
 
-3.1 `KpiCard`: add an optional `aside?: ReactNode` prop for the secondary figure. In `KpiCard.module.css`, base
-layout unchanged (`aside` below the description, above the footer); `@media (min-width: 640px)`, when `aside` is set,
-a two-column grid: label, value and description in the first column, `aside` in the second, footer spanning both.
-Re-measure the card at 640 px and 1024 px and set the `min-height` so the skeleton still matches; give
-`KpiCardSkeleton` an `aside` variant (`withAside` prop) with the same columns.
+3.1 `KpiCard`: add an optional `aside?: ReactNode` prop for the secondary figure, below the description and above the
+footer at every width (see Review changes: the two-column grid from 640 px was dropped).
 3.2 `GazaDemographicsView.tsx`: move the named figure (`styles.named`) from the card `footer` into `aside`; the footer
-keeps only the `SourceNote`. The no-summary card (named count as the main figure) passes no `aside`. Use the
-`withAside` skeleton when loading.
+keeps only the `SourceNote`. The no-summary card (named count as the main figure) passes no `aside`.
 3.3 Wrap the chart area in a `<div className={styles.charts}>` that contains the `ChartsErrorBoundary` (and therefore
 the `Suspense` fallback, the charts, and the chart `LoadError`); use the same wrapper around `<ChartSkeletons />` in
 the loading skeleton.
@@ -69,7 +65,7 @@ data source, and the undercount caveat (wording from `SiteFooter`).
 ## 5. Tests
 
 5.1 `src/components/KpiCard.test.tsx`: `aside` renders inside the figure, after the value; without `aside` the
-markup is unchanged; `KpiCardSkeleton withAside` shares the card's container class.
+markup is unchanged.
 5.2 `src/components/ChartFrame.test.tsx`: the source note is still the last child of the frame (layout change must
 not reorder the DOM).
 5.3 `src/features/gaza-demographics/GazaDemographicsView.test.tsx`: with the summary, the named figure is in the
@@ -96,3 +92,15 @@ DevTools.
 7.4 After the merge and a successful deploy, mark Phase 10 ✅ in `specs/roadmap.md`.
 7.5 When the owner asks: `git tag -a v1.0.0 -m "Witness MVP"` on the merge commit, push the tag, and create the GitHub
 release with `gh release create v1.0.0` and notes summarised from `CHANGELOG.md`.
+
+## Review changes (2026-10-12)
+
+Changes made during implementation and the owner's review; `requirements.md` and `validation.md` are updated.
+
+- KPI card: the two-column row from 640 px (main figure left, named figure right) shipped in PR #10 and was dropped
+  after the owner's review. The named figure stays below the main figure at every width, as before Phase 10; the
+  `aside` prop stays, and the `withAside` skeleton variant is removed.
+- Chart skeletons: bar heights follow the frame's title, description and source line heights (audit finding).
+- Chart Retry: re-imports the chunk under a fresh URL, and `cssCodeSplit: false` keeps the chart CSS in the main
+  stylesheet (audit finding).
+- Favicon linked as `/favicon.svg` (Vite prefixes the base), not `./favicon.svg`, which Vite leaves unrewritten.

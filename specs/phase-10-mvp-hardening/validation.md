@@ -15,7 +15,6 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 ### Components
 
 - [x] `KpiCard`: `aside` renders inside the figure after the value; without `aside` the markup is unchanged.
-- [x] `KpiCardSkeleton withAside` shares the card's container class.
 - [x] `ChartFrame`: the source note is still the last child of the frame.
 - [x] Every markup fix from the audit has a test (for example a heading role or an accessible name).
 
@@ -139,7 +138,7 @@ measured 0 at 320×700 and at 180×390.
 Expected layout:
 
 - [x] Below 640 px: one column; the named figure below the main figure in the card; charts stacked.
-- [x] 640–1023 px: the card shows the main and named figures side by side, the source below both; charts stacked.
+- [x] 640–1023 px: the card in one column (named figure below the main figure); charts stacked.
 - [x] From 1024 px: the card full width on top; Sex and Age side by side, frames of equal height, sources aligned at
       the bottom; content capped at 1200 px.
 - [x] Without the summary (block `summary.json`), the card is one column at every width.
@@ -185,7 +184,7 @@ An Android phone through Chrome remote DevTools, network throttled to "Slow 4G",
 
 - [ ] Accessibility pass (contrast, keyboard, screen-reader summaries) and dark-mode audit complete, every finding
       resolved.
-- [x] KPI row from 640 px and the two-column chart grid from 1024 px, across the full responsive matrix (including
+- [x] The two-column chart grid from 1024 px, across the full responsive matrix (including
       landscape and 200% zoom).
 - [ ] Re-checked on a real low-end phone over a throttled network.
 - [ ] Performance budget met: initial JS ≤ ~200 kB gzip, Lighthouse mobile ≥ 90.

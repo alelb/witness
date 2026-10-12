@@ -43,9 +43,9 @@ function lastUpdated(isoDate: string | null | undefined): string | null {
   return isoDate == null ? null : `last updated ${formatIsoDate(isoDate)}`;
 }
 
-// Gaza demographics view. The main figure is the total from Gaza daily reports; the named count is the card's aside
-// (below it on phones, beside it from 640 px), a separate figure from a separate dataset, never merged. Without the
-// summary, the named count is the main figure and the card has no aside.
+// Gaza demographics view. The main figure is the total from Gaza daily reports; the named count is the card's aside,
+// below it, a separate figure from a separate dataset, never merged. Without the summary, the named count is the main
+// figure and the card has no aside.
 export function GazaDemographicsView() {
   const { status, data, retry } = useDataset('gaza-demographics');
   // A failed lazy import stays failed: Retry swaps in a fresh `lazy()` and remounts the boundary.
@@ -117,7 +117,7 @@ export function GazaDemographicsView() {
         onRetry={retry}
         skeleton={
           <div className={styles.view}>
-            <KpiCardSkeleton withAside />
+            <KpiCardSkeleton />
             <div className={styles.charts}>
               <ChartSkeletons />
             </div>

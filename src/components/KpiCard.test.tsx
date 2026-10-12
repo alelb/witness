@@ -59,14 +59,4 @@ describe('KpiCard', () => {
     expect(skeleton.firstElementChild).toHaveClass(cardClass ?? '');
     expect(skeleton.firstElementChild).toHaveAttribute('aria-hidden', 'true');
   });
-
-  it('shares the container classes of a card with an aside with the withAside skeleton', () => {
-    const { container: card } = render(<KpiCard label="L" value={1} aside="A" />);
-    const { container: skeleton } = render(<KpiCardSkeleton withAside />);
-    const { container: plain } = render(<KpiCardSkeleton />);
-    const cardClasses = card.firstElementChild?.className.split(' ') ?? [];
-    expect(cardClasses).toHaveLength(2);
-    expect(skeleton.firstElementChild).toHaveClass(...cardClasses);
-    expect(plain.firstElementChild).not.toHaveClass(cardClasses[1] ?? 'missing');
-  });
 });

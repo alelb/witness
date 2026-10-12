@@ -6,7 +6,7 @@ export interface KpiCardProps {
   label: string;
   value: number;
   description?: ReactNode;
-  /** A secondary figure: below the description on phones, in a second column from 640 px. */
+  /** A secondary figure, below the description and above the footer. */
   aside?: ReactNode;
   footer?: ReactNode;
 }
@@ -16,43 +16,26 @@ export interface KpiCardProps {
 export function KpiCard({ label, value, description, aside, footer }: KpiCardProps) {
   const labelId = useId();
   return (
-    <figure
-      className={aside === undefined ? styles.card : `${styles.card} ${styles.withAside}`}
-      aria-labelledby={labelId}
-    >
+    <figure className={styles.card} aria-labelledby={labelId}>
       <figcaption id={labelId}>
         <h2 className={styles.label}>{label}</h2>
       </figcaption>
       <p className={styles.value}>{formatCount(value)}</p>
       {description !== undefined && <div className={styles.description}>{description}</div>}
-      {aside !== undefined && <div className={`${styles.asideSlot} ${styles.aside}`}>{aside}</div>}
+      {aside !== undefined && <div className={styles.aside}>{aside}</div>}
       {footer !== undefined && <div className={styles.footer}>{footer}</div>}
     </figure>
   );
 }
 
-/**
- * Placeholder with the card's container and min-height: swapping it for the card causes no layout shift.
- * `withAside` matches a card with an `aside`, including its two columns from 640 px.
- */
-export function KpiCardSkeleton({ withAside = false }: { withAside?: boolean }) {
+/** Placeholder with the card's container and min-height: swapping it for the card causes no layout shift. */
+export function KpiCardSkeleton() {
   return (
-    <div
-      className={[styles.card, withAside && styles.withAside, styles.skeleton]
-        .filter(Boolean)
-        .join(' ')}
-      aria-hidden="true"
-    >
+    <div className={`${styles.card} ${styles.skeleton}`} aria-hidden="true">
       <span className={`${styles.bar} ${styles.barLabel}`} />
       <span className={`${styles.bar} ${styles.barValue}`} />
       <span className={styles.bar} />
-      {withAside && (
-        <div className={styles.asideSlot}>
-          <span className={`${styles.bar} ${styles.barLabel}`} />
-          <span className={`${styles.bar} ${styles.barShort}`} />
-        </div>
-      )}
-      <span className={`${styles.bar} ${styles.barShort} ${styles.barFooter}`} />
+      <span className={`${styles.bar} ${styles.barShort}`} />
     </div>
   );
 }

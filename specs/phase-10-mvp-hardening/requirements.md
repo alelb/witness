@@ -66,11 +66,10 @@ Record every finding in `validation.md` (audit log), then fix it in this phase o
 All new rules are `min-width` media queries on the existing breakpoints (`640px`, `1024px`); the base (phone) layout
 does not change.
 
-- **KPI row (`≥ 640px`)**: inside the one `KpiCard`, the main figure (reported total, its label and description) and
-  the named figure sit side by side in two columns; the source note spans both columns below them. Below `640px` the
-  card is unchanged. The card stays one card with one source note: the named figure stays secondary and is never merged
-  with the reported total (Phase 4–7). Without the summary (named count as the main figure) the card is one column at
-  every width. The card and its skeleton keep the same height at every width (no layout shift).
+- **KPI card**: one column at every width: the main figure (reported total, its label and description), then the
+  named figure, then the source note (owner review, 2026-10-12: the two-column KPI row from `640px` was dropped). The
+  card stays one card with one source note: the named figure stays secondary and is never merged with the reported
+  total (Phase 4–7). The card and its skeleton keep the same height at every width (no layout shift).
 - **Desktop grid (`≥ 1024px`)**: the KPI card stays full width on top; the Sex and Age charts sit side by side below
   it (charts two per row, tech-stack). The charts get their own wrapper grid, so the KPI card, the loading wrapper,
   and the empty and error messages stay full width without per-item rules; the chart `LoadError` spans the whole
@@ -116,7 +115,7 @@ does not change.
 | Decision          | Choice                                                                   | Rationale                                                                     |
 | ----------------- | ------------------------------------------------------------------------ | ----------------------------------------------------------------------------- |
 | Dark mode         | Audit the existing `prefers-color-scheme` theme; no toggle               | Already implemented; a toggle adds state and storage for little gain.         |
-| KPI row           | Two columns inside the one `KpiCard` from `640px`                        | Keeps the main/secondary hierarchy and one source note from Phase 4–7.        |
+| KPI card          | One column at every width (two-column row dropped in owner review)       | Keeps the main/secondary hierarchy and one source note from Phase 4–7.        |
 | Desktop grid      | Charts wrapper, two columns from `1024px`; KPI full width above          | Tech-stack breakpoint table.                                                  |
 | Frame alignment   | Equal-height frames, sources aligned at the bottom                       | Borders and sources line up in a row; plots keep their own height.            |
 | Order of work     | Audit on `main` → fixes → layout → release                               | Findings are recorded against the shipped site before anything changes.       |

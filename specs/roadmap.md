@@ -66,8 +66,8 @@ wrapper and the text summary.
 
 - Accessibility pass (contrast, keyboard, headings for the KPI and chart titles) and dark-mode audit of the
   `prefers-color-scheme` theme (no toggle); the VoiceOver pass was skipped by the owner.
-- Tablet and desktop enhancement: the named figure beside the reported total in the KPI card from `640px`, Sex and Age
-  charts side by side from `1024px` (no tables to adapt, decided in Phase 8–9 review); full responsive test matrix
+- Tablet and desktop enhancement: Sex and Age charts side by side from `1024px`, the KPI card stays one column (owner
+  review) (no tables to adapt, decided in Phase 8–9 review); full responsive test matrix
   (incl. landscape and 200% zoom).
 - Performance budget check (bundle size, Lighthouse mobile ≥ 90); SVG favicon and a README overview for the release.
 - **Done when:** MVP released on GitHub Pages. 🎯

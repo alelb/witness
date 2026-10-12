@@ -78,7 +78,6 @@ describe('GazaDemographicsView', () => {
     // The KPI skeleton plus one skeleton per chart, the chart skeletons inside the charts wrapper.
     expect(busy?.querySelectorAll('[aria-hidden="true"]')).toHaveLength(3);
     expect(busy?.querySelectorAll(`.${styles.charts} > [aria-hidden="true"]`)).toHaveLength(2);
-    expect(busy?.querySelector(`.${kpiStyles.withAside}[aria-hidden="true"]`)).toBeInTheDocument();
     expect(screen.queryByRole('figure')).not.toBeInTheDocument();
   });
 
