@@ -58,11 +58,11 @@ describe('App', () => {
   });
 
   it('moves focus to main and leaves the URL unchanged when the skip link is used', () => {
-    history.replaceState(null, '', '#/gaza-demographics');
+    history.replaceState(null, '', '#/killed-in-gaza');
     render(<App />);
     fireEvent.click(screen.getByRole('link', { name: 'Skip to content' }));
     expect(screen.getByRole('main')).toHaveFocus();
-    expect(location.hash).toBe('#/gaza-demographics');
+    expect(location.hash).toBe('#/killed-in-gaza');
   });
 });
 

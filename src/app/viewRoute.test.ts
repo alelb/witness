@@ -6,7 +6,7 @@ describe('parseViewHash', () => {
     ['', { kind: 'default' }],
     ['#', { kind: 'default' }],
     ['#/', { kind: 'default' }],
-    ['#/gaza-demographics', { kind: 'view', id: 'gaza-demographics' }],
+    ['#/killed-in-gaza', { kind: 'view', id: 'killed-in-gaza' }],
     ['#/unknown', { kind: 'view', id: 'unknown' }],
     // Nested paths are not routes: the id `a/b` matches no view, so it is treated as unknown.
     ['#/a/b', { kind: 'view', id: 'a/b' }],
@@ -18,6 +18,6 @@ describe('parseViewHash', () => {
 
 describe('viewHref', () => {
   it('builds the hash route for a view id', () => {
-    expect(viewHref('gaza-demographics')).toBe('#/gaza-demographics');
+    expect(viewHref('killed-in-gaza')).toBe('#/killed-in-gaza');
   });
 });

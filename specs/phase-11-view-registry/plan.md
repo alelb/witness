@@ -8,7 +8,7 @@ Branch: `phase-11-view-registry`
 ComponentType }`, with a comment on each field (id: kebab-case, unique, used in `#/<id>`). Features own the contract;
 the app shell only consumes it.
 1.2 `src/features/gaza-demographics/index.ts`: also export
-`view: ViewDefinition = { id: 'gaza-demographics', label: 'Gaza demographics', title: 'Gaza demographics', Component:
+`view: ViewDefinition = { id: 'killed-in-gaza', label: 'Gaza demographics', title: 'Gaza demographics', Component:
 GazaDemographicsView }`.
 1.3 `src/app/views.ts`: `export const views: readonly ViewDefinition[] = [gazaDemographics.view];` with a comment:
 registering a view is one line here, and the first entry is the default.
@@ -41,7 +41,7 @@ current view.
 
 ## 4. Tests
 
-4.1 `src/app/viewRoute.test.ts`: table-driven `parseViewHash` cases (`''`, `'#'`, `'#/'`, `'#/gaza-demographics'`,
+4.1 `src/app/viewRoute.test.ts`: table-driven `parseViewHash` cases (`''`, `'#'`, `'#/'`, `'#/killed-in-gaza'`,
 `'#/unknown'`, `'#main'`, `'#/a/b'` → view `a/b`, treated as unknown), and `viewHref`.
 4.2 `src/app/useViewRoute.test.tsx` (with two fake views): initial view from the hash; `hashchange` to a known id
 switches; unknown id falls back to the default and calls `replaceState` without a new history entry; `#main` keeps
@@ -62,7 +62,7 @@ the current view; `document.title` follows the view.
 5.1 Run `pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build`; record the bundle sizes in
 `validation.md`.
 5.2 On `pnpm preview`, and on the Pages URL after the deploy: the page looks the same as `main` at 360 px and 1440 px;
-`#/gaza-demographics` and `#/unknown` behave as specified; the skip link keeps the URL.
+`#/killed-in-gaza` and `#/unknown` behave as specified; the skip link keeps the URL.
 5.3 Update `CHANGELOG.md` after committing.
 5.4 Open a PR, confirm `ci` is green, and wait for the owner's review before merging.
 5.5 After the merge and a successful deploy, mark Phase 11 ✅ in `specs/roadmap.md`.

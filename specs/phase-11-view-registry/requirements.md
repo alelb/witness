@@ -33,7 +33,7 @@ tabIndex={-1}>`, and the footer.
 - A `ViewDefinition` type: `id` (kebab-case, unique, used in the URL), `label` (menu text), `title` (document title
   part), and `Component` (the view, no props).
 - Each feature folder exports its definition as `view` from its `index.ts`. The Gaza demographics view is
-  `{ id: 'gaza-demographics', label: 'Gaza demographics', title: 'Gaza demographics' }`.
+  `{ id: 'killed-in-gaza', label: 'Gaza demographics', title: 'Gaza demographics' }`.
 - `src/app/views.ts` is the ordered list of registered views. The first entry is the default view. **Registering a
   view = a new feature folder plus one line in `views.ts`**; no existing view, the router, the menu, or the layout
   changes.
@@ -42,7 +42,7 @@ tabIndex={-1}>`, and the footer.
 
 ### 2. Routing
 
-- Hash routes (decided 2026-10-12): `#/<view-id>`, e.g. `https://alelb.github.io/witness/#/gaza-demographics`. No build
+- Hash routes (decided 2026-10-12): `#/<view-id>`, e.g. `https://alelb.github.io/witness/#/killed-in-gaza`. No build
   change and no 404 handling on Pages.
 - A hand-written hook (decided 2026-10-12), no router dependency.
 - Rules:
@@ -91,6 +91,7 @@ tabIndex={-1}>`, and the footer.
 | Router            | Hand-written hook, no dependency                               | Flat list of views; tech-stack lists no router.                              |
 | Registry          | `view` descriptor per feature, ordered list in `app/views.ts`  | One line to register a view; the first entry is the default.                 |
 | Loading           | Static imports                                                 | No extra round trip before the KPI; charts are already lazy.                 |
+| View id           | `killed-in-gaza`, not the feature folder name                  | Names the dataset the view shows; chosen by the owner in review.             |
 | Menu              | Only from two views                                            | No one-item menu; the site does not change until Phase 13.                   |
 | Unknown view      | Default view, URL corrected with `replaceState`                | No dead end, no extra history entry.                                         |
 | Current view      | `document.title` + region label; focus to `main` on change     | Screen readers hear the new view; no visual change to the existing view.     |

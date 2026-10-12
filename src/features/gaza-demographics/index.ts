@@ -5,7 +5,7 @@ import { GazaDemographicsView } from './GazaDemographicsView.tsx';
 export { GazaDemographicsView };
 
 export const view: ViewDefinition = {
-  id: 'gaza-demographics',
+  id: 'killed-in-gaza',
   label: 'Gaza demographics',
   title: 'Gaza demographics',
   Component: GazaDemographicsView,

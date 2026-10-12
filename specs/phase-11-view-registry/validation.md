@@ -56,14 +56,14 @@ On `pnpm preview`, then on <https://alelb.github.io/witness/> after the deploy. 
 real second view in Phase 13 (decided 2026-10-12); here only the unchanged site and the URLs are checked.
 
 2026-10-12, on `pnpm preview` (headless Chromium): no Views menu, title "Gaza demographics · Witness",
-`#/gaza-demographics` survives a reload, `#/unknown` becomes `…/witness/` and Back skips it, the first Tab reaches the
+`#/killed-in-gaza` survives a reload, `#/unknown` becomes `…/witness/` and Back skips it, the first Tab reaches the
 skip link and Enter focuses `main` with the URL unchanged, no console errors. With one view the rendered markup is the
 same as on `main` (the menu slot renders nothing), so the layout at 360 px and 1440 px is unchanged. To repeat on the
 Pages URL after the deploy.
 
 - [x] At 360 px and 1440 px, light and dark, the page looks the same as on `main` (no menu, same layout).
 - [x] The tab title reads "Gaza demographics · Witness".
-- [x] `…/witness/#/gaza-demographics` opens the view; a reload keeps it.
+- [x] `…/witness/#/killed-in-gaza` opens the view; a reload keeps it.
 - [x] `…/witness/#/unknown` opens the default view and the address bar shows `…/witness/`; Back does not return to
       `#/unknown`.
 - [x] The skip link appears on the first Tab, moves focus to the main content, and the address bar does not change.
