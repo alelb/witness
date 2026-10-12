@@ -17,6 +17,7 @@ All notable changes to Witness, grouped by date (newest first).
 - Add an SVG favicon that follows the light and dark theme, fixing the `/favicon.ico` 404.
 - Add a "What Witness shows" section to the README.
 - Complete Phase 10 — MVP hardening: the tablet and desktop layout is live at <https://alelb.github.io/witness/>.
+- Keep the KPI card in one column at every width: the named figure stays below the reported total (owner review).
 
 ## 2026-10-09
 
