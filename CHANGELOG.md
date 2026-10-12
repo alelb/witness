@@ -16,6 +16,7 @@ All notable changes to Witness, grouped by date (newest first).
   the main stylesheet.
 - Add an SVG favicon that follows the light and dark theme, fixing the `/favicon.ico` 404.
 - Add a "What Witness shows" section to the README.
+- Complete Phase 10 — MVP hardening: the tablet and desktop layout is live at <https://alelb.github.io/witness/>.
 
 ## 2026-10-09
 

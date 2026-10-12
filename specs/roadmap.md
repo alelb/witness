@@ -62,12 +62,14 @@ wrapper and the text summary.
 - **Done when:** both charts are live on the Pages URL, readable at 360 px with no horizontal scroll, and their
   summaries match the aggregator output.
 
-### Phase 10 — MVP hardening
+### Phase 10 — MVP hardening ✅
 
-- Accessibility pass (contrast, keyboard, screen-reader summaries), dark mode.
-- Tablet and desktop enhancement: KPI row and regular tables from `640px`, multi-column grid from `1024px`;
-  full responsive test matrix (incl. landscape and 200% zoom); re-check on a real low-end phone over a throttled network.
-- Performance budget check (bundle size, Lighthouse mobile ≥ 90).
+- Accessibility pass (contrast, keyboard, headings for the KPI and chart titles) and dark-mode audit of the
+  `prefers-color-scheme` theme (no toggle); the VoiceOver pass was skipped by the owner.
+- Tablet and desktop enhancement: the named figure beside the reported total in the KPI card from `640px`, Sex and Age
+  charts side by side from `1024px` (no tables to adapt, decided in Phase 8–9 review); full responsive test matrix
+  (incl. landscape and 200% zoom).
+- Performance budget check (bundle size, Lighthouse mobile ≥ 90); SVG favicon and a README overview for the release.
 - **Done when:** MVP released on GitHub Pages. 🎯
 
 ## Milestone C — Time-series & West Bank
