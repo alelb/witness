@@ -6,6 +6,11 @@ import { defineConfig } from 'vite';
 export default defineConfig({
   base: '/witness/',
   plugins: [react()],
+  build: {
+    // One stylesheet in the initial load: the lazy chart chunk then has no CSS of its own that could fail to load
+    // and be skipped when Retry imports the chunk again.
+    cssCodeSplit: false,
+  },
   test: {
     environment: 'jsdom',
     setupFiles: ['./src/test/setup.ts'],

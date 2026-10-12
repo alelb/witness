@@ -18,6 +18,16 @@ import styles from './GazaDemographicsView.module.css';
 const loadCharts = () => import('./DemographicCharts.tsx');
 const DemographicCharts = lazy(loadCharts);
 
+// Browsers cache a failed dynamic import by URL, so importing the chunk again rejects without a request. On Retry,
+// fall back to the chunk's URL from the error message (Chromium, Firefox) with a query that makes it a new module.
+function reloadCharts(attempt: number): ReturnType<typeof loadCharts> {
+  return loadCharts().catch((error: unknown) => {
+    const url = error instanceof Error ? /https?:\/\/\S+/.exec(error.message)?.[0] : undefined;
+    if (url === undefined) throw error;
+    return import(/* @vite-ignore */ `${url}?retry=${attempt}`) as ReturnType<typeof loadCharts>;
+  });
+}
+
 // Sized for the usual case, an empty Unknown bucket (not drawn): one row less than the definitions.
 function ChartSkeletons() {
   return (
@@ -33,14 +43,18 @@ function lastUpdated(isoDate: string | null | undefined): string | null {
   return isoDate == null ? null : `last updated ${formatIsoDate(isoDate)}`;
 }
 
-// Gaza demographics view. The main figure is the total from Gaza daily reports; the named count sits below it as a
-// separate figure from a separate dataset, never merged. Without the summary, the named count is the main figure.
+// Gaza demographics view. The main figure is the total from Gaza daily reports; the named count is the card's aside
+// (below it on phones, beside it from 640 px), a separate figure from a separate dataset, never merged. Without the
+// summary, the named count is the main figure and the card has no aside.
 export function GazaDemographicsView() {
   const { status, data, retry } = useDataset('gaza-demographics');
   // A failed lazy import stays failed: Retry swaps in a fresh `lazy()` and remounts the boundary.
   const [charts, setCharts] = useState({ attempt: 0, Charts: DemographicCharts });
   const retryCharts = () =>
-    setCharts(({ attempt }) => ({ attempt: attempt + 1, Charts: lazy(loadCharts) }));
+    setCharts(({ attempt }) => ({
+      attempt: attempt + 1,
+      Charts: lazy(() => reloadCharts(attempt + 1)),
+    }));
 
   // Start the chunk download on mount, in parallel with the data. A failure surfaces through the lazy component.
   useEffect(() => {
@@ -78,23 +92,19 @@ export function GazaDemographicsView() {
             {reportedUpdated === null ? '' : `, ${reportedUpdated}`}.
           </p>
         }
+        aside={
+          <div className={styles.named}>
+            <p>
+              <strong className={styles.namedValue}>{formatCount(named)}</strong> identified by name
+            </p>
+            <p className={styles.namedNote}>
+              Killed in Gaza list
+              {namedUpdated === null ? '; last update date unavailable.' : `, ${namedUpdated}.`}
+            </p>
+          </div>
+        }
         footer={
-          <>
-            <div className={styles.named}>
-              <p>
-                <strong className={styles.namedValue}>{formatCount(named)}</strong> identified by
-                name
-              </p>
-              <p className={styles.namedNote}>
-                Killed in Gaza list
-                {namedUpdated === null ? '; last update date unavailable.' : `, ${namedUpdated}.`}
-              </p>
-            </div>
-            <SourceNote
-              datasetName="Gaza daily reports and Killed in Gaza"
-              href={DATA_PORTAL_URL}
-            />
-          </>
+          <SourceNote datasetName="Gaza daily reports and Killed in Gaza" href={DATA_PORTAL_URL} />
         }
       />
     );
@@ -107,18 +117,22 @@ export function GazaDemographicsView() {
         onRetry={retry}
         skeleton={
           <div className={styles.view}>
-            <KpiCardSkeleton />
-            <ChartSkeletons />
+            <KpiCardSkeleton withAside />
+            <div className={styles.charts}>
+              <ChartSkeletons />
+            </div>
           </div>
         }
       >
         {card}
         {named > 0 && data !== null && (
-          <ChartsErrorBoundary key={charts.attempt} onRetry={retryCharts}>
-            <Suspense fallback={<ChartSkeletons />}>
-              <charts.Charts demographics={data.demographics} namedUpdated={namedUpdated} />
-            </Suspense>
-          </ChartsErrorBoundary>
+          <div className={styles.charts}>
+            <ChartsErrorBoundary key={charts.attempt} onRetry={retryCharts}>
+              <Suspense fallback={<ChartSkeletons />}>
+                <charts.Charts demographics={data.demographics} namedUpdated={namedUpdated} />
+              </Suspense>
+            </ChartsErrorBoundary>
+          </div>
         )}
       </StateBoundary>
     </section>

@@ -3,6 +3,22 @@
   gap: var(--space-5);
 }
 
+/* Sex and Age charts: stacked, then side by side from 1024 px. A lone child (the chart error) spans the row. */
+.charts {
+  display: grid;
+  gap: var(--space-5);
+}
+
+@media (min-width: 1024px) {
+  .charts {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .charts > :only-child {
+    grid-column: 1 / -1;
+  }
+}
+
 .named {
   display: grid;
   gap: var(--space-1);

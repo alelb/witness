@@ -12,7 +12,7 @@ export interface DemographicChartsProps {
 const SEX_TITLE = 'Sex';
 const AGE_TITLE = 'Age';
 
-// The lazily loaded chart chunk: the only module that pulls in the chart library. One column at every width.
+// The lazily loaded chart chunk: the only module that pulls in the chart library. Laid out by the view's charts grid.
 export default function DemographicCharts({ demographics, namedUpdated }: DemographicChartsProps) {
   const { total } = demographics;
   const bySex = shownBuckets(demographics.bySex);
