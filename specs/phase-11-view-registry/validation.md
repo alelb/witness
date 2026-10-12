@@ -10,7 +10,7 @@ Run locally and in CI:
 pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 ```
 
-- [ ] All checks pass locally, and the `ci` workflow is green on the PR.
+- [x] All checks pass locally, and the `ci` workflow is green on the PR.
 
 ### Routing
 
