@@ -2,6 +2,10 @@
 
 All notable changes to Witness, grouped by date (newest first).
 
+## 2026-10-12
+
+- Rename the project from Shaded to Witness: the site moves from `/shaded/` to <https://alelb.github.io/witness/>.
+
 ## 2026-10-09
 
 - Revise the Phase 3 spec: a minimal defensive person normalizer instead of per-dataset modules or a generic engine.
