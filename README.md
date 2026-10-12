@@ -1,10 +1,10 @@
-# Shaded
+# Witness
 
-[![ci](https://github.com/alelb/shaded/actions/workflows/ci.yml/badge.svg)](https://github.com/alelb/shaded/actions/workflows/ci.yml)
+[![ci](https://github.com/alelb/witness/actions/workflows/ci.yml/badge.svg)](https://github.com/alelb/witness/actions/workflows/ci.yml)
 
-Live: <https://alelb.github.io/shaded/>
+Live: <https://alelb.github.io/witness/>
 
-_Shahed_ means witness in Arabic. Focuses on data as an objective witness to the humanitarian situation.
+Witness (_shahed_, شاهد, in Arabic) focuses on data as an objective witness to the humanitarian situation.
 
 ## Input request from stakeholders
 
@@ -36,7 +36,7 @@ As a project owner, I want the initial architecture to be modular so that future
 
 ## Data sources
 
-Shaded uses open datasets published by [Tech for Palestine](https://data.techforpalestine.org/): killed in Gaza
+Witness uses open datasets published by [Tech for Palestine](https://data.techforpalestine.org/): killed in Gaza
 (names list with age and sex), Gaza daily casualties, West Bank daily reports, press killed in Gaza, and
 infrastructure damage. These datasets reflect reported figures and may not capture the entire human toll.
 

@@ -14,11 +14,11 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm format:check
 - [ ] `pnpm lint`: no errors and no warnings.
 - [ ] `pnpm typecheck`: no errors.
 - [ ] `pnpm test`: all tests pass, including the new shell tests:
-  - [ ] heading "Shaded", intro line, and the `main` landmark with the placeholder;
+  - [ ] heading "Witness", intro line, and the `main` landmark with the placeholder;
   - [ ] skip link is the first link and its `href` is `#main`;
   - [ ] footer attribution link points to `https://data.techforpalestine.org/`, and the limitations note is
         rendered.
-- [ ] `pnpm build`: `dist/index.html` references assets under `/shaded/`.
+- [ ] `pnpm build`: `dist/index.html` references assets under `/witness/`.
 - [ ] `pnpm format:check`: clean.
 - [ ] The `ci` workflow is green on the PR (including `format:check`).
 
@@ -37,7 +37,7 @@ pnpm lint && pnpm typecheck && pnpm test && pnpm build && pnpm format:check
 
 ## Pre-merge: manual responsive matrix
 
-Check with `pnpm build && pnpm preview` (open `/shaded/`) in Chrome DevTools device mode. Check 360 px first.
+Check with `pnpm build && pnpm preview` (open `/witness/`) in Chrome DevTools device mode. Check 360 px first.
 
 | Viewport                  | No horizontal scroll | Text readable, nothing clipped | Footer note visible | Notes |
 | ------------------------- | -------------------- | ------------------------------ | ------------------- | ----- |
@@ -63,7 +63,7 @@ Also check:
 ## Post-merge (phase done)
 
 - [ ] `deploy.yml` succeeds on `main`.
-- [ ] `https://<user>.github.io/shaded/` loads the shell, with no 404s for JS/CSS and no console errors.
+- [ ] `https://<user>.github.io/witness/` loads the shell, with no 404s for JS/CSS and no console errors.
 - [ ] Spot-check 360 px and 1440 px on the live URL, plus one real phone if available.
 - [ ] `README.md` shows the live URL and CI badge. `roadmap.md` marks Phase 1 ✅.
 

@@ -20,8 +20,8 @@ and never has to touch tooling. Stakeholder stories: [3.1] modular layout, [3.2]
   - `src/hooks/`: the `DatasetStatus` / `useDataset` result type only (no implementation).
   - `src/components/`: an index with a TODO comment.
   - `src/features/gaza-demographics/`: an index with a TODO comment.
-  - `src/app/`: an `App` component that renders the heading "Shaded".
-- **One sample Vitest unit test** (pure TS) and **one sample React Testing Library test** (App renders "Shaded"),
+  - `src/app/`: an `App` component that renders the heading "Witness".
+- **One sample Vitest unit test** (pure TS) and **one sample React Testing Library test** (App renders "Witness"),
   to prove the test setup works.
 - npm scripts: `dev`, `build`, `preview`, `lint`, `typecheck`, `test`, `format`, `format:check`.
 - Node pinned to **24 LTS** through `.nvmrc` and `engines.node` (`>=24 <25`). pnpm is pinned through

@@ -18,7 +18,7 @@ A UI phase is not done until it works on a phone (touch, no horizontal scroll, r
 
 - GitHub Actions: lint, typecheck, test, build; deploy to GitHub Pages on `main`.
 - Mobile-first app shell: single-column layout, design tokens (including `640px` / `1024px` breakpoints and a
-  `1200px` max content width), title "Shaded", footer with data attribution and limitations note.
+  `1200px` max content width), title "Witness", footer with data attribution and limitations note.
 - **Done when:** an empty shell is live on the Pages URL and passes the responsive test matrix in `tech-stack.md`
   (no horizontal scroll at 320–360 px, works in landscape and at 200% zoom, content capped on wide screens).
 

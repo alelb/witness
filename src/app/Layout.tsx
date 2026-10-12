@@ -11,7 +11,7 @@ export function Layout({ children }: { children: ReactNode }) {
       </a>
       <header className={styles.header}>
         <div className={styles.inner}>
-          <h1 className={styles.title}>Shaded</h1>
+          <h1 className={styles.title}>Witness</h1>
           <p className={styles.intro}>
             Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank.
           </p>

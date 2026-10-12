@@ -4,15 +4,15 @@ Branch: `phase-01-ci-deploy`
 
 ## 1. Repository setup (manual, owner)
 
-1.1 Create the GitHub repository `shaded` (public) and add it as `origin`.
+1.1 Create the GitHub repository `witness` (public) and add it as `origin`.
 1.2 Push `main` and this branch.
 1.3 In Settings → Pages, set **Source: GitHub Actions**.
 1.4 Optional: protect `main` so that the `ci` check is required before merge.
 
 ## 2. Vite base path
 
-2.1 Set `base: '/shaded/'` in `vite.config.ts` and remove the Phase 1 TODO comment.
-2.2 Check that `pnpm build && pnpm preview` serves the app at `/shaded/` with every asset resolving.
+2.1 Set `base: '/witness/'` in `vite.config.ts` and remove the Phase 1 TODO comment.
+2.2 Check that `pnpm build && pnpm preview` serves the app at `/witness/` with every asset resolving.
 
 ## 3. CI workflow
 
@@ -51,7 +51,7 @@ pointing to it. This is the single source of the values used in `min-width` quer
 
 6.1 `src/app/Layout.tsx` + `Layout.module.css`: skip link → `<header>` → `<main id="main" tabIndex={-1}>` →
 `<footer>`. An inner wrapper is centered with `max-width: var(--content-max-width)` and side gutters.
-6.2 Header: `<h1>Shaded</h1>` and the intro line.
+6.2 Header: `<h1>Witness</h1>` and the intro line.
 6.3 Main: a neutral placeholder paragraph ("Data views are being prepared.").
 6.4 `src/components/SiteFooter.tsx` + CSS Module: Tech for Palestine attribution link, the limitations note, and a
 repository link. Export it from `src/components/index.ts`.
@@ -60,7 +60,7 @@ repository link. Export it from `src/components/index.ts`.
 
 ## 7. Tests
 
-7.1 Extend `App.test.tsx`: the heading "Shaded", the intro line, and the `main` landmark with the placeholder.
+7.1 Extend `App.test.tsx`: the heading "Witness", the intro line, and the `main` landmark with the placeholder.
 7.2 Skip link: it is the first link in the document and its `href` is `#main`.
 7.3 Add `SiteFooter.test.tsx`: the attribution link `href` is `https://data.techforpalestine.org/`, and the
 limitations note is present.

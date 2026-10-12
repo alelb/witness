@@ -23,7 +23,7 @@ GitHub Pages, [3.1] modular layout (the shell only wires views up).
   (`dist/`), and `actions/deploy-pages`.
 - Least-privilege permissions: `contents: read`, `pages: write`, `id-token: write`. Uses the `github-pages`
   environment. Concurrency group `pages`, without cancelling an in-progress deploy.
-- Vite `base: '/shaded/'`, so the site is served at `https://<user>.github.io/shaded/`.
+- Vite `base: '/witness/'`, so the site is served at `https://<user>.github.io/witness/`.
 
 ### App shell (mobile first)
 
@@ -39,7 +39,7 @@ GitHub Pages, [3.1] modular layout (the shell only wires views up).
 - **Layout** (`src/app/Layout.tsx` + CSS Module): `<header>`, `<main id="main">`, and `<footer>` landmarks, with a
   "Skip to content" link as the first focusable element. Content is centered and capped at `--content-max-width`;
   backgrounds span the full width. Single column at every width for now (no grid content yet).
-- **Header**: title "Shaded" (`<h1>`) and one short, sober intro line, for example: _"Open data bearing witness to the
+- **Header**: title "Witness" (`<h1>`) and one short, sober intro line, for example: _"Open data bearing witness to the
   human toll in Gaza and the West Bank."_
 - **Main**: a neutral placeholder (for example, _"Data views are being prepared."_). No spinner and no animation.
 - **Footer** (`src/components/SiteFooter.tsx`):
@@ -47,11 +47,11 @@ GitHub Pages, [3.1] modular layout (the shell only wires views up).
   - Limitations note, always visible: _"Reported figures may undercount the real toll because of information
     disruption and bodies not yet recovered."_ (draft, to be confirmed in review).
   - Link to the source repository (once the remote exists).
-- Document `<title>` "Shaded", `lang="en"`, `<meta name="description">`, and `<meta name="color-scheme" content="light dark">`.
+- Document `<title>` "Witness", `lang="en"`, `<meta name="description">`, and `<meta name="color-scheme" content="light dark">`.
 
 ### Tests
 
-- RTL tests for the shell: the heading "Shaded", the intro line, the skip link targeting `#main`, the `main`
+- RTL tests for the shell: the heading "Witness", the intro line, the skip link targeting `#main`, the `main`
   placeholder, the footer attribution link (correct `href`), and the limitations note.
 
 ## Out of scope (deferred)
@@ -70,7 +70,7 @@ GitHub Pages, [3.1] modular layout (the shell only wires views up).
 
 | Decision          | Choice                                                              | Rationale                                                                              |
 | ----------------- | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------- |
-| Pages URL / base  | Project site, `base: '/shaded/'`                                    | Repository named `shaded`, so no custom domain is needed.                              |
+| Pages URL / base  | Project site, `base: '/witness/'`                                    | Repository named `witness`, so no custom domain is needed.                              |
 | Deploy mechanism  | Official Pages actions (artifact + `deploy-pages`)                  | No `gh-pages` branch to maintain. The Pages source is set to "GitHub Actions".         |
 | Workflow layout   | `ci.yml` (all pushes/PRs) + `deploy.yml` (`main` only)              | Clear separation: checks never need Pages permissions.                                 |
 | Shell extras      | Light + dark tokens, intro line, skip link + landmarks, placeholder | Accessible structure from day one; the page is not blank before data views exist.      |

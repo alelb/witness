@@ -12,9 +12,9 @@ vi.mock('../hooks/useDataset.ts', () => ({
 }));
 
 describe('App', () => {
-  it('renders the "Shaded" heading and intro line', () => {
+  it('renders the "Witness" heading and intro line', () => {
     render(<App />);
-    expect(screen.getByRole('heading', { level: 1, name: 'Shaded' })).toBeInTheDocument();
+    expect(screen.getByRole('heading', { level: 1, name: 'Witness' })).toBeInTheDocument();
     expect(screen.getByText(/open data bearing witness/i)).toBeInTheDocument();
   });
 

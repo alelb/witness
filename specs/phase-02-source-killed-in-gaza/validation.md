@@ -48,7 +48,7 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 
 ## Live CORS check (manual)
 
-Run the headless-browser script from plan task 6 against the deployed origin `https://alelb.github.io/shaded/`.
+Run the headless-browser script from plan task 6 against the deployed origin `https://alelb.github.io/witness/`.
 
 - [x] HTTP 200 from the page's `fetch`, with no CORS error in the console.
 - [x] The header row matches `id, en_name, ar_name, age, dob, sex, update`, or any change is noted here.

@@ -5,7 +5,7 @@ Branch: `phase-00-scaffold`
 ## 1. Toolchain pinning
 
 1.1 Add `.nvmrc` with `24`.
-1.2 Initialize `package.json` (`"private": true`, `"type": "module"`, name `shaded`). Set `engines.node` to `>=24 <25`
+1.2 Initialize `package.json` (`"private": true`, `"type": "module"`, name `witness`). Set `engines.node` to `>=24 <25`
 and `packageManager` to the current pnpm version.
 1.3 Add `.gitignore` (node_modules, dist, coverage, .DS_Store, *.local).
 
@@ -23,7 +23,7 @@ and `packageManager` to the current pnpm version.
 `src/components`, `src/hooks`, and `src/app`.
 3.2 Add the typed stubs listed in `requirements.md`, each with a one-line comment about the folder's
 responsibility and layering rule.
-3.3 `src/app/App.tsx` renders `<h1>Shaded</h1>`, and `main.tsx` mounts it.
+3.3 `src/app/App.tsx` renders `<h1>Witness</h1>`, and `main.tsx` mounts it.
 
 ## 4. Lint and format
 
@@ -39,7 +39,7 @@ responsibility and layering rule.
 5.2 Configure the `test` block in `vite.config.ts` (or `vitest.config.ts`): jsdom environment and a setup file
 that imports `@testing-library/jest-dom/vitest`.
 5.3 Add a sample unit test next to an aggregator stub, testing a trivial pure function or type-level behavior.
-5.4 Add a sample RTL test: `App` renders the heading "Shaded".
+5.4 Add a sample RTL test: `App` renders the heading "Witness".
 5.5 Add the `test` script (`vitest run`), plus an optional `test:watch`.
 
 ## 6. Verify and document

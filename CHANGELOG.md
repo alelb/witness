@@ -1,6 +1,6 @@
 # Changelog
 
-All notable changes to Shaded, grouped by date (newest first).
+All notable changes to Witness, grouped by date (newest first).
 
 ## 2026-10-09
 
@@ -25,7 +25,7 @@ All notable changes to Shaded, grouped by date (newest first).
   figure, 72,835 identified by name below it, one "last updated" date for each figure.
 - Reword the header intro: "Open data bearing witness to Palestinians killed by Israel in Gaza and the West Bank."
 - Remove the footer "Source code" link and the max-width on the intro and the limitations note.
-- Complete Phase 4–7 — First live view: the KPI card is live at <https://alelb.github.io/shaded/>.
+- Complete Phase 4–7 — First live view: the KPI card is live at <https://alelb.github.io/witness/>.
 - Add the Phase 8–9 Demographic charts spec (requirements, plan, validation).
 - Add Recharts, isolated in a `HorizontalBarChart` component: counts written on every bar, a tap/click tooltip with
   count and share, the Unknown bucket hatched, wrapped category labels, and no animation.
@@ -36,7 +36,7 @@ All notable changes to Shaded, grouped by date (newest first).
 - Add the "Sex" and "Age" charts below the KPI card: lazy-loaded and preloaded on mount, an empty Unknown bucket is
   not drawn, and a failed chart download shows Retry while the KPI stays visible.
 - Add a chart bar color token with at least 3:1 contrast in light and dark mode.
-- Complete Phase 8–9 — Demographic charts: the sex and age charts are live at <https://alelb.github.io/shaded/>.
+- Complete Phase 8–9 — Demographic charts: the sex and age charts are live at <https://alelb.github.io/witness/>.
 
 ## 2026-10-08
 
@@ -56,11 +56,11 @@ All notable changes to Shaded, grouped by date (newest first).
 - Add a `/changelog` skill to keep this changelog up to date before merging.
 - Add the Phase 1 CI & deploy skeleton spec (requirements, plan, validation).
 - Add GitHub Actions CI (format check, lint, typecheck, test, build) on pull requests and branch pushes.
-- Add GitHub Pages deploy from `main`, reusing the CI checks; the site is served under `/shaded/`.
+- Add GitHub Pages deploy from `main`, reusing the CI checks; the site is served under `/witness/`.
 - Add the mobile-first app shell: light and dark design tokens, breakpoints, a skip link and page landmarks, an
   intro line, and a footer with Tech for Palestine attribution and the limitations note.
 - Add tests for the app shell and footer, and a CI badge, live URL, and deploy note to the README.
-- Complete Phase 1 — CI & deploy skeleton: the shell is live at <https://alelb.github.io/shaded/>.
+- Complete Phase 1 — CI & deploy skeleton: the shell is live at <https://alelb.github.io/witness/>.
 - Add the Phase 2 Killed in Gaza source module spec (requirements, plan, validation).
 - Add a shared `fetchJson` helper for source modules: a 60 s total timeout, cancellation through the caller's
   `AbortSignal`, and plain, serializable errors (`network`, `timeout`, `aborted`, `http`, `parse`) instead of

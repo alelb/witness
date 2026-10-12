@@ -19,7 +19,7 @@ counts object pre-filled with zeros, then maps the ordered definitions to `Count
 2.2 Implement `toSummaryFacts(value: unknown)`, which never throws and returns `null` fields for missing or invalid
 values.
 2.3 Implement `fetchSummary(options?)` on top of `fetchJson`. A non-object payload → `fail('shape', …)`.
-2.4 Add a fixture `src/data/sources/__fixtures__/summary.sample.json`, trimmed to the fields Shaded reads plus one
+2.4 Add a fixture `src/data/sources/__fixtures__/summary.sample.json`, trimmed to the fields Witness reads plus one
 unrelated key.
 
 ## 3. Pipeline and worker

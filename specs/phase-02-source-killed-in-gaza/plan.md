@@ -67,7 +67,7 @@ the missing column or the bad row index), and `toDemographicRows`.
 
 ## 6. Live CORS check (manual, not committed)
 
-6.1 Write a one-off headless-browser script in the scratchpad. It opens `https://alelb.github.io/shaded/`, runs
+6.1 Write a one-off headless-browser script in the scratchpad. It opens `https://alelb.github.io/witness/`, runs
 `fetch(KILLED_IN_GAZA_URL)` from the page, and reports the HTTP status, the `content-encoding`, the row count
 (excluding the header), the header, and the duration.
 6.2 Record the result in `validation.md` (date, row count, duration). Also confirm there are no CORS errors in the

@@ -1,4 +1,4 @@
-// Source module: Tech for Palestine headline summary. Shaded reads only the Killed in Gaza dates and record count
+// Source module: Tech for Palestine headline summary. Witness reads only the Killed in Gaza dates and record count
 // and the reported total killed in Gaza. Every field is read defensively: a bad value becomes `null`, never an error.
 import { fail, fetchJson, ok, type FetchJsonOptions, type SourceResult } from './fetchJson.ts';
 

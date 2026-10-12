@@ -2,9 +2,9 @@
 import react from '@vitejs/plugin-react';
 import { defineConfig } from 'vite';
 
-// Served from the GitHub Pages project sub-path: https://<user>.github.io/shaded/
+// Served from the GitHub Pages project sub-path: https://<user>.github.io/witness/
 export default defineConfig({
-  base: '/shaded/',
+  base: '/witness/',
   plugins: [react()],
   test: {
     environment: 'jsdom',

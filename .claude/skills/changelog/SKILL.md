@@ -14,7 +14,7 @@ Keep `CHANGELOG.md` in the project root up to date from git history.
 ```markdown
 # Changelog
 
-All notable changes to Shaded, grouped by date (newest first).
+All notable changes to Witness, grouped by date (newest first).
 
 ## 2026-10-08
 
