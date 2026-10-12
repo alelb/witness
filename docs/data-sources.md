@@ -24,7 +24,7 @@ a new dataset is added, or when a value rule is decided. Always date observation
 
 ## Catalog
 
-| Dataset               | Status                | Endpoint used by Witness                                                | Source module                      |
+| Dataset               | Status                | Endpoint used by Witness                                               | Source module                      |
 | --------------------- | --------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
 | Killed in Gaza        | In use (Phase 2)      | `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`     | `src/data/sources/killedInGaza.ts` |
 | Summary               | In use (Phase 4–7)    | `https://data.techforpalestine.org/api/v3/summary.json`                | `src/data/sources/summary.ts`      |
@@ -52,7 +52,7 @@ Records of individual people killed in Gaza, identified by name. Witness uses on
 
 ### Field values and rules
 
-| Field | Observed (2026-10-07)        | Rule in Witness                                                                                                                                                                         |
+| Field | Observed (2026-10-07)        | Rule in Witness                                                                                                                                                                        |
 | ----- | ---------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `age` | Integer from 0 to 110        | Whole years: an integer number or integer string (trimmed) from 0 to 120. Anything else (missing, empty, negative, fractional, above 120, non-numeric) → Unknown (decided 2026-10-08). |
 | `age` | `0` in 1,072 records         | **`0` is a real age: a child under one year.** Never treated as Unknown (confirmed 2026-10-08).                                                                                        |
@@ -95,14 +95,14 @@ Killed in Gaza list and for the reported total killed in Gaza, shown as a separa
 
 ### Field values and rules (decided 2026-10-09)
 
-| Field                                 | Rule in Witness                                                                                                    |
+| Field                                 | Rule in Witness                                                                                                   |
 | ------------------------------------- | ----------------------------------------------------------------------------------------------------------------- |
 | `known_killed_in_gaza.last_update`    | Shown as the Killed in Gaza "last updated" date. Kept only if it is a `YYYY-MM-DD` string; otherwise unavailable. |
 | `known_killed_in_gaza.includes_until` | Not used: one date per figure keeps the card readable.                                                            |
 | `known_killed_in_gaza.records`        | Not displayed; used only to cross-check the live total. Kept only if it is a non-negative integer.                |
 | `gaza.killed.total`                   | Shown as a separate reported-total line, never merged with the named count. Same integer rule.                    |
 | `gaza.last_update`                    | The "as of" date of the reported total. Same date rule.                                                           |
-| `male` / `female` splits              | Not used: their child / adult / senior bands differ from Witness's age brackets.                                   |
+| `male` / `female` splits              | Not used: their child / adult / senior bands differ from Witness's age brackets.                                  |
 
 If `summary.json` fails or is malformed, the Killed in Gaza figures still show; only the dates and the reported total
 are left out.
