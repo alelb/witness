@@ -1,7 +1,9 @@
 import { fireEvent, render, screen, within } from '@testing-library/react';
 import { afterEach, beforeAll, beforeEach, describe, expect, it, vi } from 'vitest';
+import kpiStyles from '../../components/KpiCard.module.css';
 import type { GazaDemographicsData } from '../../data/worker/gazaDemographics.ts';
 import { useDataset, type UseDatasetResult } from '../../hooks/useDataset.ts';
+import styles from './GazaDemographicsView.module.css';
 import { GazaDemographicsView } from './GazaDemographicsView.tsx';
 
 vi.mock('../../hooks/useDataset.ts', () => ({ useDataset: vi.fn() }));
@@ -73,9 +75,22 @@ describe('GazaDemographicsView', () => {
     expect(useDataset).toHaveBeenCalledWith('gaza-demographics');
     const busy = container.querySelector('[aria-busy="true"]');
     expect(busy).toBeInTheDocument();
-    // The KPI skeleton plus one skeleton per chart.
+    // The KPI skeleton plus one skeleton per chart, the chart skeletons inside the charts wrapper.
     expect(busy?.querySelectorAll('[aria-hidden="true"]')).toHaveLength(3);
+    expect(busy?.querySelectorAll(`.${styles.charts} > [aria-hidden="true"]`)).toHaveLength(2);
+    expect(busy?.querySelector(`.${kpiStyles.withAside}[aria-hidden="true"]`)).toBeInTheDocument();
     expect(screen.queryByRole('figure')).not.toBeInTheDocument();
+  });
+
+  it('renders both charts inside the charts wrapper', async () => {
+    mockDataset({ data: DATA });
+    const { container } = render(<GazaDemographicsView />);
+    const sex = await screen.findByRole('figure', { name: SEX_TITLE });
+    const wrapper = container.querySelector(`.${styles.charts}`);
+    expect(wrapper?.children).toHaveLength(2);
+    expect(wrapper).toContainElement(sex);
+    expect(wrapper).toContainElement(screen.getByRole('figure', { name: AGE_TITLE }));
+    expect(wrapper).not.toContainElement(screen.getByRole('figure', { name: REPORTED_LABEL }));
   });
 
   it('renders both charts with their summaries below the KPI card', async () => {
@@ -177,6 +192,20 @@ describe('GazaDemographicsView', () => {
     await screen.findByRole('figure', { name: SEX_TITLE });
   });
 
+  it("puts the named figure in the card's aside and only the source in its footer", async () => {
+    mockDataset({ data: DATA });
+    render(<GazaDemographicsView />);
+    const figure = screen.getByRole('figure', { name: REPORTED_LABEL });
+    const aside = figure.querySelector(`.${kpiStyles.aside}`);
+    expect(aside).toHaveTextContent('72,835 identified by name');
+    expect(aside).toHaveTextContent('Killed in Gaza list, last updated 27 July 2026.');
+    const footer = figure.lastElementChild;
+    expect(footer).toHaveTextContent(
+      /^Source: Gaza daily reports and Killed in Gaza, Tech for Palestine$/,
+    );
+    await screen.findByRole('figure', { name: SEX_TITLE });
+  });
+
   it('leaves out the date when the reported date is missing', () => {
     const summary = DATA.summary && {
       ...DATA.summary,
@@ -200,6 +229,9 @@ describe('GazaDemographicsView', () => {
     expect(screen.queryByText(/Gaza daily reports/)).not.toBeInTheDocument();
     expect(screen.getByText(/Last update date unavailable\./)).toBeInTheDocument();
     expect(screen.queryByText(/includes only people identified by name/)).not.toBeInTheDocument();
+    expect(
+      screen.getByRole('figure', { name: LABEL }).querySelector(`.${kpiStyles.aside}`),
+    ).not.toBeInTheDocument();
   });
 });
 
@@ -222,9 +254,14 @@ describe('GazaDemographicsView when the chart chunk fails to load', () => {
       retry,
     });
     const { GazaDemographicsView: View } = await import('./GazaDemographicsView.tsx');
+    const { default: viewStyles } = await import('./GazaDemographicsView.module.css');
 
-    render(<View />);
-    expect(await screen.findByRole('alert')).toBeInTheDocument();
+    const { container } = render(<View />);
+    const alert = await screen.findByRole('alert');
+    // Alone in the charts wrapper, so it spans the chart row.
+    const wrapper = container.querySelector(`.${viewStyles.charts}`);
+    expect(wrapper?.children).toHaveLength(1);
+    expect(wrapper).toContainElement(alert);
     expect(screen.getByRole('figure', { name: REPORTED_LABEL })).toHaveTextContent('74,250');
     expect(screen.queryByText(/dynamically imported/)).not.toBeInTheDocument();
 

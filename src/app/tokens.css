@@ -6,12 +6,13 @@
  *   desktop `@media (min-width: 1024px)`
  * Use `min-width` queries only; never `max-width`.
  *
- * Contrast (WCAG 2.1, text vs background / surface):
+ * Contrast (WCAG 2.1, text vs background / surface), audited 2026-10-12:
  *   light: text 16.5 / 15.0, muted 7.3 / 6.6, link 7.0 / 6.4
  *   dark:  text 15.2 / 13.5, muted 7.4 / 6.6, link 9.1 / 8.1
- * Chart bars (WCAG 1.4.11, non-text, at least 3:1 vs background / surface):
- *   light: chart-bar 4.6 / 4.2
- *   dark:  chart-bar 4.9 / 4.4
+ *   Tooltip (text on bg): light 16.5, dark 15.2. Retry label (bg on link): light 7.0, dark 9.1.
+ * Non-text (WCAG 1.4.11, at least 3:1 vs background / surface):
+ *   light: chart-bar and Unknown hatch 4.6 / 4.2, focus ring 7.0 / 6.4
+ *   dark:  chart-bar and Unknown hatch 4.9 / 4.4, focus ring 9.1 / 8.1
  * Borders are decorative only and never carry meaning.
  */
 :root {

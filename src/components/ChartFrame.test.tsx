@@ -28,6 +28,18 @@ describe('ChartFrame', () => {
     expect(within(figure).getByText('Source: Killed in Gaza')).toBeInTheDocument();
   });
 
+  it('titles the figure with a heading, for heading navigation', () => {
+    renderFrame();
+    const heading = screen.getByRole('heading', { level: 2, name: TITLE });
+    expect(screen.getByRole('figure', { name: TITLE })).toContainElement(heading);
+  });
+
+  it('keeps the source note as the last child of the frame', () => {
+    renderFrame();
+    const figure = screen.getByRole('figure', { name: TITLE });
+    expect(figure.lastElementChild).toHaveTextContent('Source: Killed in Gaza');
+  });
+
   it('keeps the summary for screen readers only, with no data table', () => {
     renderFrame();
     expect(screen.getByText(SUMMARY)).toHaveClass('visually-hidden');

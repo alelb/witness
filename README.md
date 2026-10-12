@@ -6,6 +6,18 @@ Live: <https://alelb.github.io/witness/>
 
 Witness (_shahed_, شاهد, in Arabic) focuses on data as an objective witness to the humanitarian situation.
 
+## What Witness shows
+
+The live site at <https://alelb.github.io/witness/> shows one view, on Gaza:
+
+- the total number of people killed in Gaza since 7 October 2023, as reported by Gaza daily reports;
+- the number of people identified by name in the Killed in Gaza list, shown as a separate figure;
+- the people identified by name broken down by sex and by age, in two bar charts;
+- the source and last update date next to every figure.
+
+The data comes from the open datasets published by [Tech for Palestine](https://data.techforpalestine.org/).
+Reported figures may undercount the real toll because of information disruption and bodies not yet recovered.
+
 ## Input request from stakeholders
 
 ### Stakeholder request 1: community transparency & core metrics (MVP)

@@ -29,11 +29,27 @@
   color: var(--color-text-muted);
 }
 
+.asideSlot {
+  display: grid;
+  align-content: start;
+  gap: var(--space-3);
+}
+
+.aside,
+.footer {
+  padding-top: var(--space-3);
+  border-top: 1px solid var(--color-border);
+}
+
 .footer {
   display: grid;
   gap: var(--space-3);
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
+}
+
+/* On phones the aside and the footer read as one block below the main figure, under a single rule. */
+.aside + .footer {
+  padding-top: 0;
+  border-top: 0;
 }
 
 .skeleton {
@@ -72,5 +88,46 @@
   .card {
     min-height: 22rem;
     padding: var(--space-6);
+  }
+
+  /* Main figure in the first column, the aside in the second, the footer across both. */
+  .withAside {
+    grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
+    column-gap: var(--space-5);
+    /* Tallest card from 640 to 1023 px is ~20rem (at 640 px), plus room for a longer date. */
+    min-height: 21.5rem;
+  }
+
+  .withAside > * {
+    grid-column: 1;
+  }
+
+  .withAside > .asideSlot {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+  }
+
+  .withAside > .footer,
+  .withAside > .barFooter {
+    grid-column: 1 / -1;
+  }
+
+  .aside {
+    padding-top: 0;
+    padding-left: var(--space-5);
+    border-top: 0;
+    border-left: 1px solid var(--color-border);
+  }
+
+  .aside + .footer {
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--color-border);
+  }
+}
+
+@media (min-width: 1024px) {
+  .withAside {
+    /* Tallest card from 1024 px is ~17.5rem, plus room for a longer date. */
+    min-height: 19rem;
   }
 }

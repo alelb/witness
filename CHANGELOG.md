@@ -5,6 +5,17 @@ All notable changes to Witness, grouped by date (newest first).
 ## 2026-10-12
 
 - Rename the project from Shaded to Witness: the site moves from `/shaded/` to <https://alelb.github.io/witness/>.
+- Add the Phase 10 MVP hardening spec (requirements, plan, validation).
+- Audit accessibility and dark mode on the shipped site: every token pair passes in both palettes, keyboard and tap
+  targets pass; findings and fixes are logged in the Phase 10 validation.
+- Make the KPI label and the chart titles `h2` headings, for heading navigation.
+- Show the named figure beside the reported total from 640 px, inside the same card, with a matching skeleton.
+- Show the Sex and Age charts side by side from 1024 px, in equal-height frames with their sources aligned.
+- Match the chart skeletons to the frames' line heights, so loading causes no layout shift.
+- Fix chart Retry after a failed chunk load: the chunk is re-imported under a fresh URL, and the chart CSS is part of
+  the main stylesheet.
+- Add an SVG favicon that follows the light and dark theme, fixing the `/favicon.ico` 404.
+- Add a "What Witness shows" section to the README.
 
 ## 2026-10-09
 

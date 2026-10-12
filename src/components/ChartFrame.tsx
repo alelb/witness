@@ -19,8 +19,8 @@ function plotStyle(rows: number): CSSProperties {
   return { '--rows': rows } as CSSProperties;
 }
 
-// Library-agnostic chart wrapper: title, plot area, and source. The summary is the figure's accessible description,
-// visually hidden: the bars already carry their labels and counts.
+// Library-agnostic chart wrapper: title, plot area, and source. The title is also a heading, for heading navigation.
+// The summary is the figure's accessible description, visually hidden: the bars already carry their labels and counts.
 export function ChartFrame({
   title,
   description,
@@ -34,8 +34,8 @@ export function ChartFrame({
 
   return (
     <figure className={styles.frame} aria-labelledby={titleId} aria-describedby={summaryId}>
-      <figcaption id={titleId} className={styles.title}>
-        {title}
+      <figcaption id={titleId}>
+        <h2 className={styles.title}>{title}</h2>
       </figcaption>
       {description !== undefined && <div className={styles.description}>{description}</div>}
       <p id={summaryId} className="visually-hidden">
@@ -49,14 +49,19 @@ export function ChartFrame({
   );
 }
 
-/** Placeholder with the frame's container and plot height: swapping it for the frame causes no layout shift. */
+/**
+ * Placeholder with the frame's container, plot height, and the line heights of its title, one-line description, and
+ * source: swapping it for the frame causes no layout shift.
+ */
 export function ChartFrameSkeleton({ rows }: { rows: number }) {
   return (
     <div className={styles.frame} aria-hidden="true">
       <span className={`${styles.bar} ${styles.barTitle}`} />
-      <span className={`${styles.bar} ${styles.barShort}`} />
+      <span className={`${styles.bar} ${styles.barShort} ${styles.barDescription}`} />
       <div className={`${styles.plot} ${styles.plotSkeleton}`} style={plotStyle(rows)} />
-      <span className={`${styles.bar} ${styles.barShort}`} />
+      <div className={styles.source}>
+        <span className={`${styles.bar} ${styles.barShort} ${styles.barSource}`} />
+      </div>
     </div>
   );
 }
