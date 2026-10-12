@@ -18,6 +18,12 @@ All notable changes to Witness, grouped by date (newest first).
 - Add a "What Witness shows" section to the README.
 - Complete Phase 10 — MVP hardening: the tablet and desktop layout is live at <https://alelb.github.io/witness/>.
 - Keep the KPI card in one column at every width: the named figure stays below the reported total (owner review).
+- Add the Phase 11 View registry / navigation spec (requirements, plan, validation).
+- Add the view registry: each feature exports a `view`, and registering one is a single line in `app/views.ts`.
+- Add hash routes `#/<view-id>`: unknown ids fall back to the default view and are cleared from the URL, other
+  fragments are ignored, and back and forward work; the tab title reads "<view> · Witness".
+- Add a "Views" menu shown from two views, with focus moving to the content on a view change; the skip link no longer
+  changes the URL.
 
 ## 2026-10-09
 
