@@ -2,6 +2,11 @@
 
 All notable changes to Witness, grouped by date (newest first).
 
+## 2026-10-13
+
+- Name the view's URL `#/killed-in-gaza`, after the dataset it shows (owner review).
+- Complete Phase 11 — View registry / navigation: hash routing is live at <https://alelb.github.io/witness/>.
+
 ## 2026-10-12
 
 - Rename the project from Shaded to Witness: the site moves from `/shaded/` to <https://alelb.github.io/witness/>.

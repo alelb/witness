@@ -74,9 +74,11 @@ wrapper and the text summary.
 
 ## Milestone C — Time-series & West Bank
 
-### Phase 11 — View registry / navigation
+### Phase 11 — View registry / navigation ✅
 
 - Simple routing between views; registering a view requires no change to existing views. [3.1]
+- Hash routes `#/<view-id>` (today `#/killed-in-gaza`), a hand-written router, and a "Views" menu shown from two
+  views; the menu is checked with the real second view in Phase 13.
 
 ### Phase 12 — Gaza daily casualties: source + normalizer + aggregators
 
