@@ -78,15 +78,21 @@ wrapper and the text summary.
 
 - Simple routing between views; registering a view requires no change to existing views. [3.1]
 - Hash routes `#/<view-id>` (today `#/killed-in-gaza`), a hand-written router, and a "Views" menu shown from two
-  views; the menu is checked with the real second view in Phase 13.
+  views; the menu is checked with the real second view in Phase 12–13.
 
-### Phase 12 — Gaza daily casualties: source + normalizer + aggregators
+### Phase 12–13 — Gaza daily casualties
 
-- `casualties_daily` source; series for killed/injured over time; missing days handled explicitly.
+Merges the former Phases 12 (source + normalizer + aggregators) and 13 (view), so the phase ships something visible
+(decided 2026-10-15).
 
-### Phase 13 — Gaza daily casualties: view
-
-- Line/area chart over time with cumulative and daily toggle; KPI for latest report date.
+- `casualties_daily` source and normalizer; days without a report (`report_source: "missing"` or
+  `report_period: 0`) handled explicitly.
+- Aggregators in the worker: killed per month and the cumulative total; KPI for the latest report date.
+- View: monthly bars with a toggle to the cumulative line (decided 2026-10-15, instead of a daily series: 1,100+ daily
+  bars are unreadable at 360 px, and multi-day reports create false spikes).
+- The second registered view: the "Views" menu appears, and its manual checks from Phase 11 run here.
+- **Done when:** the view is live on the Pages URL, readable at 360 px with no horizontal scroll, and its figures match
+  the aggregator output.
 
 ### Phase 14 — West Bank daily: source + normalizer + aggregators
 

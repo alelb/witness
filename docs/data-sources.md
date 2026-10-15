@@ -28,7 +28,7 @@ a new dataset is added, or when a value rule is decided. Always date observation
 | --------------------- | --------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
 | Killed in Gaza        | In use (Phase 2)      | `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`     | `src/data/sources/killedInGaza.ts` |
 | Summary               | In use (Phase 4–7)    | `https://data.techforpalestine.org/api/v3/summary.json`                | `src/data/sources/summary.ts`      |
-| Gaza daily casualties | Planned (Phase 12)    | `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`   |                                    |
+| Gaza daily casualties | Planned (Phase 12–13) | `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`   |                                    |
 | West Bank daily       | Planned (Phase 14)    | `https://data.techforpalestine.org/api/v2/west_bank_daily.min.json`    |                                    |
 | Press killed in Gaza  | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/press_killed_in_gaza.json`   |                                    |
 | Infrastructure damage | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/infrastructure-damaged.json` |                                    |
@@ -111,9 +111,46 @@ are left out.
 
 Daily reports of aggregate killed and injured counts in the Gaza Strip.
 
-- **Endpoints:** JSON `…/api/v2/casualties_daily.json`, minified `…/api/v2/casualties_daily.min.json`, CSV
-  `…/api/v2/casualties_daily.csv`.
-- **Structure:** not profiled yet (Phase 12).
+- **Endpoint:** minified JSON v2, `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`.
+- **Other formats (not used):** JSON `…/api/v2/casualties_daily.json`, CSV `…/api/v2/casualties_daily.csv`.
+- **Official field documentation:** <https://data.techforpalestine.org/docs/casualties-daily/>.
+
+### Structure (observed 2026-10-15)
+
+- A JSON array of objects, one per calendar day, sorted by `report_date`: 1,104 rows from 2023-10-07 to 2026-10-14,
+  with no missing or duplicate dates. Fields vary from row to row: a field with no value is left out, not `null`.
+- Always present: `report_date`, `report_source`, `report_period`, and the `ext_*` fields. `killed_cum` is absent in 25
+  rows, `injured_cum` in 33; `killed` and `injured` (daily counts, "may include retroactive") are often absent.
+- Other fields appear only in some periods: `killed_children_cum`, `killed_women_cum`, `med_killed_cum`,
+  `press_killed_cum`, `civdef_killed_cum`, `massacres_cum`, `killed_truce_new`, `killed_committee`, `killed_recovered`,
+  `killed_succumbed`, `aid_seeker_killed_cum`, `aid_seeker_injured_cum`, `famine_cum`, `child_famine_cum`.
+- The last row's `ext_killed_cum` (74,392 on 2026-10-14) equals `summary.json` `gaza.killed.total` and
+  `gaza.last_update`.
+
+### Field values and rules
+
+| Field                         | Observed (2026-10-15)                                                                               | Rule in Witness (decided 2026-10-15)                                                                      |
+| ----------------------------- | --------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| `report_date`                 | `YYYY-MM-DD`, one per day                                                                           | Kept only if it is a valid `YYYY-MM-DD` date; otherwise the row is skipped and counted.                   |
+| `report_source`               | `mohtel` 1,042 (Ministry of Health), `gmotel` 22 (Government Media Office), `missing` 40            | `mohtel`, `gmotel`, `unocha` (documented, not seen) → reported. `missing` or any other value → no report. |
+| `report_period`               | Hours covered: 24 (908), 48 (87), 72 (5), 96 (1), 0 (103)                                           | A positive integer → reported; `0` or anything else → no report.                                          |
+| `killed_cum`, `injured_cum`   | Non-decreasing integers                                                                             | Used only on a reported day and only as a non-negative integer; otherwise `null`.                         |
+| `killed`, `injured`           | Daily counts, may include retroactive counts                                                        | Not used: monthly figures are differences of month-end cumulatives.                                       |
+| `ext_*`                       | Present in every row; filled by Tech for Palestine when a report is missing, sometimes by averaging | **Never used** (mission principle 1: no extrapolated value shown).                                        |
+| Breakdowns and special fields | Only in some periods                                                                                | Not used.                                                                                                 |
+
+Days without a report (`report_source: "missing"` or `report_period: 0`): 125 on 2026-10-15, in 28 of the 37 months.
+On these days the dataset still has values (copied or filled in); Witness ignores them and counts the day as without
+a report.
+
+Monthly figures (decided 2026-10-15): a month's cumulative is the last reported `killed_cum` in that month; its
+figure is that value minus the previous month's (0 before the first report). On 2026-10-15 every month has a reported
+cumulative, the monthly figures sum to the last reported total, and each month-end value equals `ext_killed_cum`.
+
+### Transfer and headers (observed 2026-10-15)
+
+- 494 kB uncompressed, about 38 kB gzip; served with Brotli (`content-encoding: br`).
+- `access-control-allow-origin: *`, `cache-control: public, max-age=0, must-revalidate`, with an `etag`.
 
 ## West Bank daily
 
