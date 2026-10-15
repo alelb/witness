@@ -10,9 +10,9 @@ Run locally and in CI:
 pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 ```
 
-2026-10-15: all checks pass locally (29 test files, 352 tests). CI: pending the PR.
+2026-10-15: all checks pass locally (29 test files, 352 tests) and `ci` is green on PR #13.
 
-- [ ] All checks pass locally, and the `ci` workflow is green on the PR.
+- [x] All checks pass locally, and the `ci` workflow is green on the PR.
 
 ### Data
 
