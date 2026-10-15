@@ -2,6 +2,17 @@
 
 All notable changes to Witness, grouped by date (newest first).
 
+## 2026-10-15
+
+- Add the Phase 12–13 Gaza daily casualties spec (requirements, plan, validation).
+- Add the Gaza daily casualties source, normalizer and monthly aggregators: reported values only (the `ext_*` fields
+  are never read); days without a report are counted per month; the monthly figures sum to the latest reported total.
+- Add the "Gaza over time" view: the latest reported killed total with the injured total beside it, people reported
+  killed per month with a toggle to the cumulative total, and a collapsible table of the figures by month.
+- Show the "Views" menu, now that two views are registered.
+- Share the lazy chart chunk with Retry between views, and let `ChartFrame` take a fixed-height plot, controls and a
+  details slot. Only `src/components/*Chart.tsx` files import Recharts.
+
 ## 2026-10-13
 
 - Name the view's URL `#/killed-in-gaza`, after the dataset it shows (owner review).
