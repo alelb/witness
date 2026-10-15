@@ -56,6 +56,7 @@
 
   /* Charts */
   --chart-row-height: 3rem; /* One bar row, with room for a label wrapped onto two lines */
+  --chart-time-height: 18rem; /* A time series plot, capped at 70svh by `ChartFrame` */
 }
 
 @media (prefers-color-scheme: dark) {

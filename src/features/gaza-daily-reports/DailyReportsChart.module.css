@@ -1,0 +1,37 @@
+/* Two buttons joined into one control; the pressed one is filled, so the state never relies on color alone. */
+.toggle {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.option {
+  min-width: var(--tap-target);
+  min-height: var(--tap-target);
+  padding: var(--space-2) var(--space-4);
+  background: transparent;
+  color: var(--color-link);
+  border: 1px solid var(--color-link);
+  font: inherit;
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  overflow-wrap: normal;
+  cursor: pointer;
+}
+
+.option:first-child {
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.option:last-child {
+  border-radius: 0 var(--radius) var(--radius) 0;
+}
+
+/* Joined borders: the second button overlaps the first by one border width. */
+.option + .option {
+  margin-left: -1px;
+}
+
+.option[aria-pressed='true'] {
+  background: var(--color-link);
+  color: var(--color-bg);
+}

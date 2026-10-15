@@ -29,6 +29,17 @@
   height: min(calc(var(--rows) * var(--chart-row-height) + var(--space-5)), 70svh);
 }
 
+/* A plot without rows (e.g. a time series): one fixed height, capped the same way. */
+.plotFixed {
+  height: min(var(--chart-time-height), 70svh);
+}
+
+/* Controls and details lay out their own content; the frame only spaces them. */
+.controls,
+.details {
+  min-width: 0;
+}
+
 .frame > :last-child {
   margin-top: auto;
 }
@@ -66,8 +77,8 @@
   height: calc(var(--font-size-sm) * var(--line-height));
 }
 
-/* The source link's tap target sets the height of the source line. */
-.barSource {
+/* A tap target sets the height of the source line, a controls row, and a details summary. */
+.barTapTarget {
   height: var(--tap-target);
 }
 

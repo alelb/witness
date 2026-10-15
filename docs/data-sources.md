@@ -24,14 +24,14 @@ a new dataset is added, or when a value rule is decided. Always date observation
 
 ## Catalog
 
-| Dataset               | Status                | Endpoint used by Witness                                               | Source module                      |
-| --------------------- | --------------------- | ---------------------------------------------------------------------- | ---------------------------------- |
-| Killed in Gaza        | In use (Phase 2)      | `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`     | `src/data/sources/killedInGaza.ts` |
-| Summary               | In use (Phase 4–7)    | `https://data.techforpalestine.org/api/v3/summary.json`                | `src/data/sources/summary.ts`      |
-| Gaza daily casualties | Planned (Phase 12–13) | `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`   |                                    |
-| West Bank daily       | Planned (Phase 14)    | `https://data.techforpalestine.org/api/v2/west_bank_daily.min.json`    |                                    |
-| Press killed in Gaza  | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/press_killed_in_gaza.json`   |                                    |
-| Infrastructure damage | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/infrastructure-damaged.json` |                                    |
+| Dataset               | Status                | Endpoint used by Witness                                               | Source module                         |
+| --------------------- | --------------------- | ---------------------------------------------------------------------- | ------------------------------------- |
+| Killed in Gaza        | In use (Phase 2)      | `https://data.techforpalestine.org/api/v3/killed-in-gaza.min.json`     | `src/data/sources/killedInGaza.ts`    |
+| Summary               | In use (Phase 4–7)    | `https://data.techforpalestine.org/api/v3/summary.json`                | `src/data/sources/summary.ts`         |
+| Gaza daily casualties | In use (Phase 12–13)  | `https://data.techforpalestine.org/api/v2/casualties_daily.min.json`   | `src/data/sources/casualtiesDaily.ts` |
+| West Bank daily       | Planned (Phase 14)    | `https://data.techforpalestine.org/api/v2/west_bank_daily.min.json`    |                                       |
+| Press killed in Gaza  | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/press_killed_in_gaza.json`   |                                       |
+| Infrastructure damage | Later (not scheduled) | `https://data.techforpalestine.org/api/v2/infrastructure-damaged.json` |                                       |
 
 ## Killed in Gaza
 
@@ -142,6 +142,10 @@ Daily reports of aggregate killed and injured counts in the Gaza Strip.
 Days without a report (`report_source: "missing"` or `report_period: 0`): 125 on 2026-10-15, in 28 of the 37 months.
 On these days the dataset still has values (copied or filled in); Witness ignores them and counts the day as without
 a report.
+
+Source module: `src/data/sources/casualtiesDaily.ts` (only `report_date`, `report_source`, `report_period`,
+`killed_cum` and `injured_cum` leave it). Normalizer: `src/data/normalize/dailyReport.ts`. Aggregators:
+`src/data/aggregators/timeSeries.ts`.
 
 Monthly figures (decided 2026-10-15): a month's cumulative is the last reported `killed_cum` in that month; its
 figure is that value minus the previous month's (0 before the first report). On 2026-10-15 every month has a reported

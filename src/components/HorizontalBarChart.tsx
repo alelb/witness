@@ -17,7 +17,8 @@ import type { CountBucket } from '../data/aggregators/demographics.ts';
 import { formatCount, formatShare } from './format.ts';
 import styles from './HorizontalBarChart.module.css';
 
-// The only file that imports `recharts`, so the chart library can be swapped without touching anything else.
+// Only `src/components/*Chart.tsx` files import `recharts`, so the chart library can be swapped without touching
+// anything else.
 
 export interface HorizontalBarChartProps {
   /** Accessible name of the chart's SVG. */
