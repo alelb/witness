@@ -3,13 +3,17 @@ import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 import { fakeViews, navigateTo } from '../test/fakeViews.tsx';
 import { App } from './App.tsx';
 
+// The Gaza over time view only renders its loading state here: its data is covered by its own tests.
 vi.mock('../hooks/useDataset.ts', () => ({
-  useDataset: () => ({
-    status: 'success',
-    data: { demographics: { total: 72_835, bySex: [], byAgeBracket: [] }, summary: null },
-    error: null,
-    retry: () => {},
-  }),
+  useDataset: (id: string) =>
+    id === 'gaza-demographics'
+      ? {
+          status: 'success',
+          data: { demographics: { total: 72_835, bySex: [], byAgeBracket: [] }, summary: null },
+          error: null,
+          retry: () => {},
+        }
+      : { status: 'loading', data: null, error: null, retry: () => {} },
 }));
 
 beforeEach(() => {
@@ -50,11 +54,47 @@ describe('App', () => {
     expect(screen.getByRole('contentinfo')).toHaveTextContent(/may undercount the real toll/i);
   });
 
-  it('shows no view menu with a single registered view, and titles the page after it', () => {
+  it("cites the current view's datasets once, in the footer", () => {
+    render(<App views={fakeViews} />);
+    const footer = screen.getByRole('contentinfo');
+    expect(within(footer).getByText(/^Source: First dataset,/)).toBeInTheDocument();
+    act(() => navigateTo('#/second'));
+    expect(within(footer).getByText(/^Source: Second dataset,/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Source:/)).toHaveLength(1);
+  });
+
+  it('names the Gaza demographics datasets in the footer by default', () => {
     render(<App />);
-    expect(screen.queryByRole('navigation', { name: 'Views' })).not.toBeInTheDocument();
+    expect(screen.getByRole('contentinfo')).toHaveTextContent(
+      /Source: Gaza daily reports and Killed in Gaza, Tech for Palestine/,
+    );
+    expect(within(screen.getByRole('main')).queryByText(/Source:/)).not.toBeInTheDocument();
+  });
+
+  it('shows the Views menu with both registered views, Gaza demographics by default', () => {
+    render(<App />);
+    const nav = screen.getByRole('navigation', { name: 'Views' });
+    const demographics = within(nav).getByRole('link', { name: 'Gaza demographics' });
+    const overTime = within(nav).getByRole('link', { name: 'Gaza over time' });
+    expect(within(nav).getAllByRole('link')).toEqual([demographics, overTime]);
+    expect(demographics).toHaveAttribute('href', '#/killed-in-gaza');
+    expect(overTime).toHaveAttribute('href', '#/gaza-daily-reports');
+    expect(demographics).toHaveAttribute('aria-current', 'page');
+    expect(overTime).not.toHaveAttribute('aria-current');
     expect(screen.getByRole('region', { name: 'Gaza demographics' })).toBeInTheDocument();
     expect(document.title).toBe('Gaza demographics · Witness');
+  });
+
+  it('renders Gaza over time from its hash, and titles the page after it', () => {
+    history.replaceState(null, '', '#/gaza-daily-reports');
+    render(<App />);
+    expect(screen.getByRole('region', { name: 'Gaza over time' })).toBeInTheDocument();
+    expect(screen.queryByRole('region', { name: 'Gaza demographics' })).not.toBeInTheDocument();
+    expect(screen.getByRole('link', { name: 'Gaza over time' })).toHaveAttribute(
+      'aria-current',
+      'page',
+    );
+    expect(document.title).toBe('Gaza over time · Witness');
   });
 
   it('moves focus to main and leaves the URL unchanged when the skip link is used', () => {

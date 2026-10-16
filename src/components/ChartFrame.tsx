@@ -6,27 +6,32 @@ export interface ChartFrameProps {
   description?: ReactNode;
   /** Plain-language summary of the figures: the chart's text equivalent, read by screen readers only. */
   summary: string;
-  /** Number of bars, which sets the plot height. */
-  rows: number;
-  /** A `SourceNote`. */
-  source: ReactNode;
+  /** Number of bars, which sets the plot height. Without it, the plot has a fixed height. */
+  rows?: number;
+  /** Controls for the chart (e.g. a mode toggle), between the description and the plot. */
+  controls?: ReactNode;
+  /** Extra content below the plot, e.g. a collapsible data table. */
+  details?: ReactNode;
   /** The chart. */
   children: ReactNode;
 }
 
-/** The plot height follows the number of rows; see `.plot` in the CSS. */
-function plotStyle(rows: number): CSSProperties {
-  return { '--rows': rows } as CSSProperties;
+/** The plot height follows the number of rows, or is fixed without them; see `.plot` in the CSS. */
+function plotProps(rows: number | undefined): { className: string; style?: CSSProperties } {
+  return rows === undefined
+    ? { className: `${styles.plot} ${styles.plotFixed}` }
+    : { className: `${styles.plot}`, style: { '--rows': rows } as CSSProperties };
 }
 
-// Library-agnostic chart wrapper: title, plot area, and source. The title is also a heading, for heading navigation.
+// Library-agnostic chart wrapper: title, description, and plot area; the source is named once, in the footer. The title is also a heading, for heading navigation.
 // The summary is the figure's accessible description, visually hidden: the bars already carry their labels and counts.
 export function ChartFrame({
   title,
   description,
   summary,
   rows,
-  source,
+  controls,
+  details,
   children,
 }: ChartFrameProps) {
   const titleId = useId();
@@ -41,27 +46,39 @@ export function ChartFrame({
       <p id={summaryId} className="visually-hidden">
         {summary}
       </p>
-      <div className={styles.plot} style={plotStyle(rows)}>
-        {children}
-      </div>
-      <div className={styles.source}>{source}</div>
+      {controls !== undefined && <div className={styles.controls}>{controls}</div>}
+      <div {...plotProps(rows)}>{children}</div>
+      {details !== undefined && <div className={styles.details}>{details}</div>}
     </figure>
   );
 }
 
+export interface ChartFrameSkeletonProps {
+  /** As in `ChartFrame`: the plot height. */
+  rows?: number;
+  /** Reserve the height of one row of controls (tap-target high). */
+  controls?: boolean;
+  /** Reserve the height of a one-line `details` summary (tap-target high). */
+  details?: boolean;
+}
+
 /**
  * Placeholder with the frame's container, plot height, and the line heights of its title, one-line description, and
- * source: swapping it for the frame causes no layout shift.
+ * any controls or details: swapping it for the frame causes no layout shift.
  */
-export function ChartFrameSkeleton({ rows }: { rows: number }) {
+export function ChartFrameSkeleton({
+  rows,
+  controls = false,
+  details = false,
+}: ChartFrameSkeletonProps) {
+  const plot = plotProps(rows);
   return (
     <div className={styles.frame} aria-hidden="true">
       <span className={`${styles.bar} ${styles.barTitle}`} />
       <span className={`${styles.bar} ${styles.barShort} ${styles.barDescription}`} />
-      <div className={`${styles.plot} ${styles.plotSkeleton}`} style={plotStyle(rows)} />
-      <div className={styles.source}>
-        <span className={`${styles.bar} ${styles.barShort} ${styles.barSource}`} />
-      </div>
+      {controls && <span className={`${styles.bar} ${styles.barShort} ${styles.barTapTarget}`} />}
+      <div {...plot} className={`${plot.className} ${styles.plotSkeleton}`} />
+      {details && <span className={`${styles.bar} ${styles.barShort} ${styles.barTapTarget}`} />}
     </div>
   );
 }

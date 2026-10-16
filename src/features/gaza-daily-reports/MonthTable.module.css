@@ -1,0 +1,133 @@
+.details {
+  font-size: var(--font-size-sm);
+}
+
+.summary {
+  display: flex;
+  align-items: center;
+  min-height: var(--tap-target);
+  color: var(--color-link);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.note {
+  display: block;
+  color: var(--color-text-muted);
+  font-weight: 400;
+}
+
+/* Base: each row is a stacked list item; the column names come from the cells' `data-label`. */
+.table {
+  display: block;
+  width: 100%;
+  margin-bottom: var(--space-3);
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.table thead {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.table tbody,
+.table tr {
+  display: block;
+}
+
+.table tr {
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.table th,
+.table td {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  column-gap: var(--space-4);
+  padding: 0;
+  text-align: start;
+}
+
+/* Figures never break inside a number: on a very narrow screen the value wraps below its column name instead. */
+.table td {
+  overflow-wrap: normal;
+}
+
+.table tbody th {
+  display: block;
+  margin-bottom: var(--space-1);
+  font-weight: 600;
+}
+
+/* The column name, hidden from assistive tech where supported: the cell is already named by its header. */
+.table td::before {
+  content: attr(data-label);
+  content: attr(data-label) / '';
+  color: var(--color-text-muted);
+}
+
+/* From 640 px: a regular table. */
+@media (min-width: 640px) {
+  .table {
+    display: table;
+  }
+
+  .table thead {
+    position: static;
+    width: auto;
+    height: auto;
+    overflow: visible;
+    clip-path: none;
+    white-space: normal;
+    display: table-header-group;
+  }
+
+  .table tbody {
+    display: table-row-group;
+  }
+
+  .table tr {
+    display: table-row;
+    padding: 0;
+  }
+
+  .table th,
+  .table td {
+    display: table-cell;
+    padding: var(--space-2) var(--space-3);
+    border-bottom: 1px solid var(--color-border);
+    vertical-align: top;
+  }
+
+  .table th:first-child {
+    padding-left: 0;
+  }
+
+  .table td {
+    text-align: end;
+  }
+
+  .table thead th {
+    color: var(--color-text-muted);
+    font-weight: 600;
+  }
+
+  .table thead th:not(:first-child) {
+    text-align: end;
+  }
+
+  .table tbody th {
+    margin-bottom: 0;
+  }
+
+  .table td::before {
+    content: none;
+  }
+}

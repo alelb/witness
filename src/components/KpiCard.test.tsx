@@ -9,10 +9,9 @@ describe('KpiCard', () => {
     expect(figure).toHaveTextContent('72,835');
   });
 
-  it('renders the description and footer when given', () => {
-    render(<KpiCard label="L" value={1} description="About this" footer={<p>Source</p>} />);
+  it('renders the description when given', () => {
+    render(<KpiCard label="L" value={1} description="About this" />);
     expect(screen.getByText('About this')).toBeInTheDocument();
-    expect(screen.getByText('Source')).toBeInTheDocument();
   });
 
   it('labels the figure with a heading, for heading navigation', () => {
@@ -21,32 +20,24 @@ describe('KpiCard', () => {
     expect(screen.getByRole('figure', { name: 'People killed' })).toContainElement(heading);
   });
 
-  it('renders the aside inside the figure, after the value and before the footer', () => {
-    render(
-      <KpiCard
-        label="L"
-        value={1}
-        description="About this"
-        aside={<p>Secondary</p>}
-        footer={<p>Source</p>}
-      />,
-    );
+  it('renders the aside inside the figure, after the value and the description', () => {
+    render(<KpiCard label="L" value={1} description="About this" aside={<p>Secondary</p>} />);
     const figure = screen.getByRole('figure', { name: 'L' });
     const aside = within(figure).getByText('Secondary');
-    const value = within(figure).getByText('1');
-    const footer = within(figure).getByText('Source');
-    expect(value.compareDocumentPosition(aside) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
-    expect(aside.compareDocumentPosition(footer) & Node.DOCUMENT_POSITION_FOLLOWING).toBeTruthy();
+    const description = within(figure).getByText('About this');
+    expect(
+      description.compareDocumentPosition(aside) & Node.DOCUMENT_POSITION_FOLLOWING,
+    ).toBeTruthy();
+    expect(figure.lastElementChild).toContainElement(aside);
   });
 
   it('leaves the markup unchanged without an aside', () => {
-    const { container } = render(<KpiCard label="L" value={1} description="D" footer="F" />);
+    const { container } = render(<KpiCard label="L" value={1} description="D" />);
     const figure = container.firstElementChild;
     expect(figure?.className.split(' ')).toHaveLength(1);
     expect(Array.from(figure?.children ?? [], (child) => child.tagName)).toEqual([
       'FIGCAPTION',
       'P',
-      'DIV',
       'DIV',
     ]);
   });

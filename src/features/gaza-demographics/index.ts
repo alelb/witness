@@ -8,5 +8,6 @@ export const view: ViewDefinition = {
   id: 'killed-in-gaza',
   label: 'Gaza demographics',
   title: 'Gaza demographics',
+  datasets: 'Gaza daily reports and Killed in Gaza',
   Component: GazaDemographicsView,
 };

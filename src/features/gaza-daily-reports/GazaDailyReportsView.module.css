@@ -1,0 +1,9 @@
+.view {
+  display: grid;
+  gap: var(--space-5);
+}
+
+.injuredValue {
+  font-size: var(--font-size-lg);
+  font-variant-numeric: tabular-nums;
+}

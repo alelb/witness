@@ -1,5 +1,5 @@
 import { Component, type ReactNode } from 'react';
-import { LoadError } from '../../components';
+import { LoadError } from './StateBoundary.tsx';
 
 export interface ChartsErrorBoundaryProps {
   /** Called by Retry. The parent remounts the boundary (a `key` change) with a fresh lazy import. */
@@ -7,7 +7,7 @@ export interface ChartsErrorBoundaryProps {
   children: ReactNode;
 }
 
-// Catches a failed chart chunk (e.g. offline after the first paint), so the KPI above stays visible.
+// Catches a failed chart chunk (e.g. offline after the first paint), so the figures above it stay visible.
 export class ChartsErrorBoundary extends Component<ChartsErrorBoundaryProps, { failed: boolean }> {
   state = { failed: false };
 

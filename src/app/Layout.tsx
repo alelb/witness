@@ -9,9 +9,17 @@ function skipToMain(event: MouseEvent<HTMLAnchorElement>) {
   document.getElementById('main')?.focus();
 }
 
-// Page frame: skip link, landmarks, the optional view menu, and the centered content column capped at
-// `--content-max-width`.
-export function Layout({ children, nav }: { children: ReactNode; nav?: ReactNode }) {
+// Page frame: skip link, landmarks, the optional view menu, the centered content column capped at
+// `--content-max-width`, and the footer naming the current view's datasets.
+export function Layout({
+  children,
+  nav,
+  datasets,
+}: {
+  children: ReactNode;
+  nav?: ReactNode;
+  datasets?: string;
+}) {
   return (
     <>
       <a className={styles.skipLink} href="#main" onClick={skipToMain}>
@@ -31,7 +39,7 @@ export function Layout({ children, nav }: { children: ReactNode; nav?: ReactNode
       </main>
       <footer className={styles.footer}>
         <div className={styles.inner}>
-          <SiteFooter />
+          <SiteFooter datasets={datasets} />
         </div>
       </footer>
     </>

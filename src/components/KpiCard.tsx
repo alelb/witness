@@ -6,14 +6,13 @@ export interface KpiCardProps {
   label: string;
   value: number;
   description?: ReactNode;
-  /** A secondary figure, below the description and above the footer. */
+  /** A secondary figure, below the description. */
   aside?: ReactNode;
-  footer?: ReactNode;
 }
 
 // One headline figure. The figure is named by its label, so screen readers announce the label with the value. The
 // label is also a heading, for heading navigation.
-export function KpiCard({ label, value, description, aside, footer }: KpiCardProps) {
+export function KpiCard({ label, value, description, aside }: KpiCardProps) {
   const labelId = useId();
   return (
     <figure className={styles.card} aria-labelledby={labelId}>
@@ -23,7 +22,6 @@ export function KpiCard({ label, value, description, aside, footer }: KpiCardPro
       <p className={styles.value}>{formatCount(value)}</p>
       {description !== undefined && <div className={styles.description}>{description}</div>}
       {aside !== undefined && <div className={styles.aside}>{aside}</div>}
-      {footer !== undefined && <div className={styles.footer}>{footer}</div>}
     </figure>
   );
 }

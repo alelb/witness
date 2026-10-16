@@ -6,12 +6,14 @@ export const fakeViews: readonly ViewDefinition[] = [
     id: 'first',
     label: 'First view',
     title: 'First',
+    datasets: 'First dataset',
     Component: () => <section aria-label="First view">First content</section>,
   },
   {
     id: 'second',
     label: 'Second view',
     title: 'Second',
+    datasets: 'Second dataset',
     Component: () => <section aria-label="Second view">Second content</section>,
   },
 ];

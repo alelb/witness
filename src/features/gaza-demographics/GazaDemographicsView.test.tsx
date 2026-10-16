@@ -108,7 +108,7 @@ describe('GazaDemographicsView', () => {
       expect(
         within(chart).getByText('Killed in Gaza list, last updated 27 July 2026.'),
       ).toBeInTheDocument();
-      expect(within(chart).getByText(/Source: Killed in Gaza/)).toBeInTheDocument();
+      expect(within(chart).queryByText(/Source:/)).not.toBeInTheDocument();
     }
     // In order: the KPI card, then the sex and age charts.
     expect(screen.getAllByRole('figure')).toEqual([
@@ -187,21 +187,18 @@ describe('GazaDemographicsView', () => {
     expect(
       within(figure).getByText('Killed in Gaza list, last updated 27 July 2026.'),
     ).toBeInTheDocument();
-    expect(within(figure).getByText(/Gaza daily reports and Killed in Gaza/)).toBeInTheDocument();
     await screen.findByRole('figure', { name: SEX_TITLE });
   });
 
-  it("puts the named figure in the card's aside and only the source in its footer", async () => {
+  it("puts the named figure last, in the card's aside, with no source note in the card", async () => {
     mockDataset({ data: DATA });
     render(<GazaDemographicsView />);
     const figure = screen.getByRole('figure', { name: REPORTED_LABEL });
     const aside = figure.querySelector(`.${kpiStyles.aside}`);
     expect(aside).toHaveTextContent('72,835 identified by name');
     expect(aside).toHaveTextContent('Killed in Gaza list, last updated 27 July 2026.');
-    const footer = figure.lastElementChild;
-    expect(footer).toHaveTextContent(
-      /^Source: Gaza daily reports and Killed in Gaza, Tech for Palestine$/,
-    );
+    expect(figure.lastElementChild).toBe(aside);
+    expect(within(figure).queryByText(/Source:/)).not.toBeInTheDocument();
     await screen.findByRole('figure', { name: SEX_TITLE });
   });
 
