@@ -8,6 +8,8 @@ All notable changes to Witness, grouped by date (newest first).
   chart; lower the KPI card's reserved height to match (owner review).
 - Drop the days-without-report column from the Gaza over time table: those days are still never filled in, and
   months with no reported total still read "No report" (owner review).
+- Complete Phase 12–13 — Gaza daily casualties: the "Gaza over time" view is live at
+  <https://alelb.github.io/witness/#/gaza-daily-reports>.
 
 ## 2026-10-15
 

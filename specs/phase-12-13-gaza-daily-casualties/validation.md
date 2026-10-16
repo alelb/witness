@@ -112,7 +112,14 @@ and link color. This holds on both routes in light and dark.
 - [x] Keyboard: Tab reaches the menu, the toggle, the chart and the table's `details`; Enter/Space work; focus is
       always visible.
 - [x] No console errors.
-- [ ] Lighthouse mobile performance ≥ 90 on `#/killed-in-gaza` and `#/gaza-daily-reports` (scores recorded here).
+- [x] Lighthouse mobile performance ≥ 90 on `#/killed-in-gaza` and `#/gaza-daily-reports` (scores recorded here).
+
+2026-10-16, Lighthouse 12.2.1 mobile on <https://alelb.github.io/witness/> after the deploy of PR #13:
+
+| Route                  | Performance | Accessibility | Best practices | SEO | LCP   | CLS | TBT   |
+| ---------------------- | ----------- | ------------- | -------------- | --- | ----- | --- | ----- |
+| `#/killed-in-gaza`     | 99          | 100           | 100            | 100 | 1.7 s | 0   | 20 ms |
+| `#/gaza-daily-reports` | 100         | 100           | 100            | 100 | 1.3 s | 0   | 40 ms |
 
 ### Owner review (2026-10-16)
 
@@ -136,7 +143,12 @@ reports, last updated 14 October 2026.", no horizontal scroll, no console errors
 
 ## Done when (roadmap)
 
-- [ ] The view is live on the Pages URL, readable at 360 px with no horizontal scroll, and its figures match the
+2026-10-16, on <https://alelb.github.io/witness/> at 360 px, light and dark: both routes load with the right title,
+the current menu link marked, no horizontal scroll and no console errors. The KPI reads 74,392, matching
+`summary.json` (`gaza.killed.total` 74,392, `gaza.last_update` 2026-10-14); the footer names each view's datasets;
+the table has Month, Killed and Cumulative.
+
+- [x] The view is live on the Pages URL, readable at 360 px with no horizontal scroll, and its figures match the
       aggregator output.
 
 ## Not required for this phase

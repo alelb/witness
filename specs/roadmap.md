@@ -80,7 +80,7 @@ wrapper and the text summary.
 - Hash routes `#/<view-id>` (today `#/killed-in-gaza`), a hand-written router, and a "Views" menu shown from two
   views; the menu is checked with the real second view in Phase 12–13.
 
-### Phase 12–13 — Gaza daily casualties
+### Phase 12–13 — Gaza daily casualties ✅
 
 Merges the former Phases 12 (source + normalizer + aggregators) and 13 (view), so the phase ships something visible
 (decided 2026-10-15).
