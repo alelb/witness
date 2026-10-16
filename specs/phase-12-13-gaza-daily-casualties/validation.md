@@ -90,18 +90,25 @@ check). Menu links 44 px high; a menu click moves focus to `main` and sets the t
 right view; `#/unknown` becomes `…/witness/`. Tab order: skip link, menu, KPI source, toggle, chart, table summary,
 chart source, footer. No console errors. Lighthouse and the Pages URL: pending the deploy.
 
+2026-10-16, branch build against a `main` build on `pnpm preview`: Gaza demographics compared at 375 px and 1280 px in
+light and dark has the same text inside `main`, and the same position, size, color and font size for all 20 headings,
+paragraphs, figures, charts, buttons and tables. Menu: at 320 px both links fit on one row (154/145 × 44 px and
+108/115 × 44 px); at 180 px (about 360 px at 200% zoom) they wrap to two rows with no horizontal scroll. The current
+link has `aria-current="page"`, weight 700, an underline and body text color; the other has weight 400, no underline
+and link color. This holds on both routes in light and dark.
+
 - [x] No horizontal page scroll at any width; the chart, toggle and table are readable at 320 px.
 - [x] Monthly columns and year ticks fit at 320 px; the partial month is outlined; the cumulative line reaches the
       latest report.
 - [x] Tapping a column or the line shows the month and value; nothing depends on hover.
 - [x] The table is a stacked list below 640 px and a regular table from 640 px; at 200% zoom nothing is clipped.
 - [x] The whole chart fits on screen at 640×360.
-- [ ] The "Views" menu wraps at 320 px, its links are at least 44×44 px, and the current one is marked by weight and
+- [x] The "Views" menu wraps at 320 px, its links are at least 44×44 px, and the current one is marked by weight and
       underline in both palettes.
 - [x] Menu link, typed hash, Back and Forward switch views; focus moves to `main`; the title reads
       "Gaza over time · Witness" / "Gaza demographics · Witness".
 - [x] `#/gaza-daily-reports` survives a reload; `#/unknown` falls back to Gaza demographics and becomes `…/witness/`.
-- [ ] The Gaza demographics view looks the same as on `main`, apart from the menu.
+- [x] The Gaza demographics view looks the same as on `main`, apart from the menu.
 - [x] Keyboard: Tab reaches the menu, the toggle, the chart and the table's `details`; Enter/Space work; focus is
       always visible.
 - [x] No console errors.
