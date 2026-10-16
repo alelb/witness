@@ -14,7 +14,6 @@ function bucket(month: string, killed: number | null, killedCum: number | null =
     month,
     killed,
     killedCum,
-    daysWithoutReport: 0,
     partial: false,
     spansFrom: null,
   } satisfies MonthBucket as MonthBucket;

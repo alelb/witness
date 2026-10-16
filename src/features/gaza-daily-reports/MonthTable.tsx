@@ -35,9 +35,6 @@ export function MonthTable({ months, latest, skippedRows }: MonthTableProps) {
             <th role="columnheader" scope="col">
               Cumulative
             </th>
-            <th role="columnheader" scope="col">
-              Days without report
-            </th>
           </tr>
         </thead>
         <tbody role="rowgroup">
@@ -54,9 +51,6 @@ export function MonthTable({ months, latest, skippedRows }: MonthTableProps) {
                 </td>
                 <td role="cell" data-label="Cumulative">
                   {count(bucket.killedCum)}
-                </td>
-                <td role="cell" data-label="Days without report">
-                  {formatCount(bucket.daysWithoutReport)}
                 </td>
               </tr>
             );

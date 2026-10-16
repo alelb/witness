@@ -45,7 +45,7 @@ describe('byMonth', () => {
 
   it('skips a reported day without a cumulative', () => {
     const [month] = byMonth([day('2024-01-01', 100), day('2024-01-31')]);
-    expect(month).toMatchObject({ killed: 100, killedCum: 100, daysWithoutReport: 29 });
+    expect(month).toMatchObject({ killed: 100, killedCum: 100 });
   });
 
   it('leaves a month without a reported cumulative null and spans the next one from it', () => {
@@ -78,19 +78,17 @@ describe('byMonth', () => {
     expect(sumKilled(months)).toBe(480);
   });
 
-  it('counts missing, period 0 and absent days as days without a report, within the series only', () => {
-    // 7–31 October: 25 days, 3 reported. Period 0 and "missing" both normalize to `reported: false`.
+  it('ignores days without a report', () => {
+    // Period 0 and "missing" both normalize to `reported: false`, with no counts.
     const months = byMonth([
       day('2023-10-07', 1),
       gap('2023-10-08'),
-      gap('2023-10-09'),
       day('2023-10-10', 2),
-      day('2023-10-31', 3),
-      day('2023-11-01', 4),
-      gap('2023-11-02'),
-      day('2023-11-14', 5),
+      gap('2023-10-31'),
     ]);
-    expect(months.map((m) => m.daysWithoutReport)).toEqual([22, 12]);
+    expect(months).toEqual([
+      { month: '2023-10', killed: 2, killedCum: 2, partial: false, spansFrom: null },
+    ]);
   });
 
   it('marks the last month partial only when the series ends before its last day', () => {
@@ -109,20 +107,18 @@ describe('byMonth', () => {
       month: '2023-10',
       killed: 8_525,
       killedCum: 8_525,
-      daysWithoutReport: 21,
       partial: false,
       spansFrom: null,
     });
     // 1 December reported the same cumulative as 28 November.
     expect(months[2]).toMatchObject({ month: '2023-12', killed: 0, killedCum: 14_800 });
-    expect(months[3]).toMatchObject({ month: '2024-01', killed: null, daysWithoutReport: 31 });
+    expect(months[3]).toMatchObject({ month: '2024-01', killed: null, killedCum: null });
     expect(months[10]).toMatchObject({ month: '2024-08', killed: 25_891, spansFrom: '2024-01' });
     expect(months.at(-1)).toMatchObject({
       month: '2026-10',
       killed: 360,
       killedCum: 74_392,
       partial: true,
-      daysWithoutReport: 11,
     });
   });
 });
@@ -210,12 +206,9 @@ describe('invariant: the monthly figures sum to the latest reported total', () =
     const reports = generatedSeries(seed, 1_100);
     const months = byMonth(reports);
     expect(sumKilled(months)).toBe(latestReport(reports)?.killedCum ?? 0);
-    // Contiguous months, and every day of the series counted once.
-    const reportedDays = reports.filter((r) => r.reported).length;
+    // The months run from the series' first month to its last.
     const first = reports[0]?.date ?? '';
     const last = reports.at(-1)?.date ?? '';
-    const seriesDays = (Date.parse(last) - Date.parse(first)) / 86_400_000 + 1;
-    expect(months.reduce((acc, m) => acc + m.daysWithoutReport, 0)).toBe(seriesDays - reportedDays);
     expect(months[0]?.month).toBe(first.slice(0, 7));
     expect(months.at(-1)?.month).toBe(last.slice(0, 7));
   });

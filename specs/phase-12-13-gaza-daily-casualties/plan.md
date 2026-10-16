@@ -32,7 +32,7 @@ without a report, invalid and duplicate dates, the fixture end to end.
 and `summarizeDailyReports(reports, skippedRows)` → `{ months, latest, skippedRows }` (the worker payload).
 3.2 `src/data/aggregators/timeSeries.test.ts`: month-end cumulative from the last reported day; first month counts
 from 0; a month without a reported cumulative (`null`, then `spansFrom` on the next month); a negative difference kept;
-`daysWithoutReport` for missing, period 0 and absent days; `partial` on and off; `latestReport` with a later injured
+days without a report ignored; `partial` on and off; `latestReport` with a later injured
 gap; the invariant (sum of monthly `killed` = latest `killedCum`) on the fixture and on generated series.
 
 ## 4. Worker and dataset registry

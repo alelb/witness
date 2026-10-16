@@ -11,8 +11,6 @@ export interface MonthBucket {
   killed: number | null;
   /** The last reported cumulative in the month, or `null`. */
   killedCum: number | null;
-  /** Days of the series in this month without a report, including days with no row at all. */
-  daysWithoutReport: number;
   /** `true` for the last month when the series ends before the month's last day. */
   partial: boolean;
   /** When the months before had no reported cumulative: the first month `killed` covers. Otherwise `null`. */
@@ -35,12 +33,6 @@ export interface DailyReportsSummary {
   skippedRows: number;
 }
 
-const DAY_MS = 24 * 60 * 60 * 1000;
-
-function toTime(isoDate: string): number {
-  return Date.parse(`${isoDate}T00:00:00Z`);
-}
-
 /** `'2023-10'` → `'2023-11'`; `'2023-12'` → `'2024-01'`. */
 function nextMonth(month: string): string {
   const [year, monthIndex] = month.split('-').map(Number) as [number, number];
@@ -54,11 +46,6 @@ function lastDayOf(month: string): string {
   const [year, monthIndex] = month.split('-').map(Number) as [number, number];
   // Day 0 of the next month is the last day of this one.
   return new Date(Date.UTC(year, monthIndex, 0)).toISOString().slice(0, 10);
-}
-
-/** Days from `from` to `to`, both included. */
-function daysBetween(from: string, to: string): number {
-  return Math.round((toTime(to) - toTime(from)) / DAY_MS) + 1;
 }
 
 /** Expects reports sorted by date, one per date, as `normalizeDailyReports()` returns them. */
@@ -75,21 +62,12 @@ export function byMonth(reports: readonly DailyReport[]): MonthBucket[] {
 
   for (let month = first.date.slice(0, 7); month <= lastMonth; month = nextMonth(month)) {
     let monthCum: number | null = null;
-    let reportedDays = 0;
     for (; index < reports.length && reports[index]!.date.startsWith(month); index++) {
       const report = reports[index]!;
-      if (!report.reported) continue;
-      reportedDays++;
-      if (report.killedCum !== null) monthCum = report.killedCum;
+      if (report.reported && report.killedCum !== null) monthCum = report.killedCum;
     }
 
-    // Only the series' own days count: none before its first day, none after its last.
-    const monthStart = `${month}-01`;
-    const monthEnd = lastDayOf(month);
-    const from = monthStart < first.date ? first.date : monthStart;
-    const to = monthEnd > last.date ? last.date : monthEnd;
-    const daysWithoutReport = daysBetween(from, to) - reportedDays;
-    const partial = month === lastMonth && last.date !== monthEnd;
+    const partial = month === lastMonth && last.date !== lastDayOf(month);
 
     if (monthCum === null) {
       uncoveredFrom ??= month;
@@ -97,7 +75,6 @@ export function byMonth(reports: readonly DailyReport[]): MonthBucket[] {
         month,
         killed: null,
         killedCum: null,
-        daysWithoutReport,
         partial,
         spansFrom: null,
       });
@@ -107,7 +84,6 @@ export function byMonth(reports: readonly DailyReport[]): MonthBucket[] {
         month,
         killed: monthCum - previousCum,
         killedCum: monthCum,
-        daysWithoutReport,
         partial,
         spansFrom: uncoveredFrom,
       });

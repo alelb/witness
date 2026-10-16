@@ -44,12 +44,7 @@ export default function DailyReportsChart({ months, latest, skippedRows }: Daily
   return (
     <ChartFrame
       title={TITLE}
-      description={
-        <p>
-          Gaza daily reports, last updated {formatIsoDate(latest.date)}. Days without a report are
-          counted in the table.
-        </p>
-      }
+      description={<p>Gaza daily reports, last updated {formatIsoDate(latest.date)}.</p>}
       summary={mode === 'bars' ? monthlySummary(months, latest) : cumulativeSummary(months, latest)}
       controls={
         <div className={styles.toggle} role="group" aria-label="Chart">

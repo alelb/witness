@@ -19,10 +19,10 @@ The live site at <https://alelb.github.io/witness/> shows two views, on Gaza, ch
 **Gaza over time:**
 
 - the latest reported totals of people killed and injured in Gaza, from Gaza daily reports;
-- the people reported killed per month, with a toggle to the cumulative total, and a table of the figures by month
-  with the days without a report.
+- the people reported killed per month, with a toggle to the cumulative total, and a table of the figures by month.
 
-Every figure has its source and last update date next to it; only reported values are shown, never estimates.
+Every view names its sources and every figure has its last update date next to it; only reported values are shown,
+never estimates.
 
 The data comes from the open datasets published by [Tech for Palestine](https://data.techforpalestine.org/).
 Reported figures may undercount the real toll because of information disruption and bodies not yet recovered.

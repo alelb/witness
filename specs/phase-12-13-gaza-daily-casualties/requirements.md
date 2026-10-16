@@ -10,7 +10,7 @@ This phase merges the former Phases 12 (source, normalizer, aggregators) and 13 
 visible (decided 2026-10-15). Stakeholder stories and principles:
 
 - Roadmap Milestone C (time series); [3.1] modular UI layout: the view plugs in through the Phase 11 registry.
-- Mission principles 1 (data as witness: no extrapolated value shown), 3 (days without a report are explicit), 4
+- Mission principles 1 (data as witness: no extrapolated value shown), 3 (days without a report are handled explicitly, never filled in), 4
   (attribution and last update date), 5 and 6 (mobile first, text and table equivalents).
 
 ## Context (2026-10-15)
@@ -51,13 +51,12 @@ visible (decided 2026-10-15). Stakeholder stories and principles:
     sorted by date; for a duplicate date, the later row in the file wins.
 - **Aggregators** `src/data/aggregators/timeSeries.ts`, pure:
   - `byMonth(reports)` → one `MonthBucket` per calendar month from the first to the last report, in order:
-    `{ month: 'YYYY-MM'; killed: number | null; killedCum: number | null; daysWithoutReport: number; partial: boolean;
+    `{ month: 'YYYY-MM'; killed: number | null; killedCum: number | null; partial: boolean;
 spansFrom: string | null }`.
   - `killedCum` = the last reported `killedCum` in the month. `killed` = that value minus the last reported
     cumulative before the month (0 before the first report: the series starts on 7 October 2023). A month with no
     reported cumulative has `killed` and `killedCum` `null`; the next month with one counts from the last known value
     and sets `spansFrom` to the first month it covers. A negative difference (a downward correction) is kept as is.
-  - `daysWithoutReport` counts the month's days with `reported: false`, or with no row at all.
   - `partial` is `true` for the last month when the latest report is not on the month's last day.
   - `latestReport(reports)` → `{ date; killedCum; injuredCum }` from the last reported day with a `killedCum`
     (`injuredCum` from the last reported day with one), or `null`.
@@ -101,12 +100,13 @@ spansFrom: string | null }`.
     - per month: "From October 2023 to October 2026 (to 14 October), 74,392 people were reported killed. The highest
       monthly figure was October 2023, with 8,525 people killed."
     - cumulative: "The reported total rose from 8,525 at the end of October 2023 to 74,392 on 14 October 2026."
-  - **Table** in `<details>` "Figures by month": Month, Killed, Cumulative, Days without report; one row per month,
+  - **Table** in `<details>` "Figures by month": Month, Killed, Cumulative; one row per month,
     newest last; a partial month reads "October 2026 (to 14 Oct)"; `null` reads "No report"; a `spansFrom` row says
     which months it includes. Below 640 px each row is a stacked list item; from 640 px a regular table
     (tech-stack rule). A note under the table when `skippedRows > 0`.
-  - The description line says that days without a report are shown in the table, and the shared limitations caveat
-    stays visible in the footer.
+  - The shared limitations caveat stays visible in the footer. (Owner review: the per-month count of days without a
+    report, its table column and the description line about it are removed; their handling is documented in
+    `docs/data-sources.md`.)
 - **States:** loading skeleton sized like the final layout (KPI + one fixed-height chart frame); error with Retry;
   empty when there is no reported cumulative at all.
 - **Menu:** with two views, the "Views" menu appears in the header ("Gaza demographics", "Gaza over time") with the

@@ -6,12 +6,14 @@ All notable changes to Witness, grouped by date (newest first).
 
 - Name the data source once per page, in the footer, with the current view's datasets, instead of on every card and
   chart; lower the KPI card's reserved height to match (owner review).
+- Drop the days-without-report column from the Gaza over time table: those days are still never filled in, and
+  months with no reported total still read "No report" (owner review).
 
 ## 2026-10-15
 
 - Add the Phase 12–13 Gaza daily casualties spec (requirements, plan, validation).
 - Add the Gaza daily casualties source, normalizer and monthly aggregators: reported values only (the `ext_*` fields
-  are never read); days without a report are counted per month; the monthly figures sum to the latest reported total.
+  are never read); days without a report are ignored; the monthly figures sum to the latest reported total.
 - Add the "Gaza over time" view: the latest reported killed total with the injured total beside it, people reported
   killed per month with a toggle to the cumulative total, and a collapsible table of the figures by month.
 - Show the "Views" menu, now that two views are registered.

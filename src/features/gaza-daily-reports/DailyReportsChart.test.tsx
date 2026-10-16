@@ -33,9 +33,7 @@ describe('DailyReportsChart', () => {
     renderChart();
     const figure = screen.getByRole('figure', { name: TITLE });
     expect(
-      within(figure).getByText(
-        'Gaza daily reports, last updated 14 January 2024. Days without a report are counted in the table.',
-      ),
+      within(figure).getByText('Gaza daily reports, last updated 14 January 2024.'),
     ).toBeInTheDocument();
     expect(within(figure).queryByText(/Source:/)).not.toBeInTheDocument();
   });
@@ -78,16 +76,16 @@ describe('DailyReportsChart', () => {
       within(table)
         .getAllByRole('columnheader')
         .map((th) => th.textContent),
-    ).toEqual(['Month', 'Killed', 'Cumulative', 'Days without report']);
+    ).toEqual(['Month', 'Killed', 'Cumulative']);
     const rows = within(table)
       .getAllByRole('row')
       .slice(1)
       .map((row) => [...row.querySelectorAll('th, td')].map((cell) => cell.textContent));
     expect(rows).toEqual([
-      ['October 2023', '8,525', '8,525', '2'],
-      ['November 2023', 'No report', 'No report', '30'],
-      ['December 2023Covers November 2023 to December 2023.', '13,000', '21,525', '0'],
-      ['January 2024 (to 14 Jan)', '400', '21,925', '3'],
+      ['October 2023', '8,525', '8,525'],
+      ['November 2023', 'No report', 'No report'],
+      ['December 2023Covers November 2023 to December 2023.', '13,000', '21,525'],
+      ['January 2024 (to 14 Jan)', '400', '21,925'],
     ]);
   });
 

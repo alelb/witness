@@ -20,7 +20,7 @@ function ChartSkeleton() {
 }
 
 // Gaza over time view: the latest reported totals, then the people reported killed per month (or the cumulative
-// total) from the Gaza daily reports. Reported values only; days without a report are counted in the table.
+// total) from the Gaza daily reports. Reported values only.
 export function GazaDailyReportsView() {
   const { status, data, retry } = useDataset('gaza-daily-reports');
   const chart = useRetryableLazy(loadChart);

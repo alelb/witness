@@ -22,7 +22,7 @@ pnpm format:check && pnpm lint && pnpm typecheck && pnpm test && pnpm build
 - [x] Normalizer: counts are kept only on reported days and only as non-negative integers; anything else is `null`.
 - [x] Normalizer: rows with an invalid date are counted in `skippedRows`; reports are sorted; the later duplicate wins.
 - [x] `byMonth`: month-end cumulative from the last reported day; the first month counts from 0; a month with no
-      reported cumulative is `null` and the next one sets `spansFrom`; `daysWithoutReport` and `partial` are right.
+      reported cumulative is `null` and the next one sets `spansFrom`; `partial` is right.
 - [x] Invariant: the sum of the monthly `killed` equals `latestReport().killedCum`, on the fixture and on generated
       series.
 - [x] The worker loader returns only `{ months, latest, skippedRows }`.
@@ -127,6 +127,12 @@ no source lines in the card and charts, and a shorter card.
 
 - [x] The source is named once per page, in the footer, with the current view's datasets.
 - [x] The KPI card swap causes no layout shift at any width with the lower `min-height`.
+
+The per-month count of days without a report was dropped from the UI and from `MonthBucket` (owner review: it added
+little for readers, and 28 of 37 months have some). Days without a report are still never filled in: their counts are
+ignored, a month with no reported cumulative reads "No report", and the next one says which months it covers. On
+`pnpm preview` at 320, 360 and 768 px: the table has Month, Killed and Cumulative, the description reads "Gaza daily
+reports, last updated 14 October 2026.", no horizontal scroll, no console errors.
 
 ## Done when (roadmap)
 
