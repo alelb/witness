@@ -1,4 +1,4 @@
-import { ChartFrame, DATA_PORTAL_URL, SourceNote } from '../../components';
+import { ChartFrame } from '../../components';
 import { HorizontalBarChart } from '../../components/HorizontalBarChart.tsx';
 import type { DemographicsSummary } from '../../data/aggregators/demographics.ts';
 import { ageSummary, sexSummary, shownBuckets } from './summaries.ts';
@@ -23,7 +23,6 @@ export default function DemographicCharts({ demographics, namedUpdated }: Demogr
       {namedUpdated === null ? '; last update date unavailable.' : `, ${namedUpdated}.`}
     </p>
   );
-  const source = <SourceNote datasetName="Killed in Gaza" href={DATA_PORTAL_URL} />;
 
   return (
     <>
@@ -32,7 +31,6 @@ export default function DemographicCharts({ demographics, namedUpdated }: Demogr
         description={description}
         summary={sexSummary(demographics)}
         rows={bySex.length}
-        source={source}
       >
         <HorizontalBarChart title={SEX_TITLE} buckets={bySex} total={total} />
       </ChartFrame>
@@ -41,7 +39,6 @@ export default function DemographicCharts({ demographics, namedUpdated }: Demogr
         description={description}
         summary={ageSummary(demographics)}
         rows={byAgeBracket.length}
-        source={source}
       >
         <HorizontalBarChart title={AGE_TITLE} buckets={byAgeBracket} total={total} />
       </ChartFrame>

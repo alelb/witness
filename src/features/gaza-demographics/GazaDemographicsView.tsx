@@ -2,12 +2,10 @@ import { Suspense } from 'react';
 import {
   ChartFrameSkeleton,
   ChartsErrorBoundary,
-  DATA_PORTAL_URL,
   formatCount,
   formatIsoDate,
   KpiCard,
   KpiCardSkeleton,
-  SourceNote,
   StateBoundary,
   useRetryableLazy,
 } from '../../components';
@@ -58,7 +56,6 @@ export function GazaDemographicsView() {
             {namedUpdated === null ? 'Last update date unavailable.' : `List ${namedUpdated}.`}
           </p>
         }
-        footer={<SourceNote datasetName="Killed in Gaza" href={DATA_PORTAL_URL} />}
       />
     ) : (
       <KpiCard
@@ -81,9 +78,6 @@ export function GazaDemographicsView() {
               {namedUpdated === null ? '; last update date unavailable.' : `, ${namedUpdated}.`}
             </p>
           </div>
-        }
-        footer={
-          <SourceNote datasetName="Gaza daily reports and Killed in Gaza" href={DATA_PORTAL_URL} />
         }
       />
     );

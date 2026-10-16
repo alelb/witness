@@ -114,6 +114,20 @@ and link color. This holds on both routes in light and dark.
 - [x] No console errors.
 - [ ] Lighthouse mobile performance ≥ 90 on `#/killed-in-gaza` and `#/gaza-daily-reports` (scores recorded here).
 
+### Owner review (2026-10-16)
+
+The Tech for Palestine source was repeated on every KPI card and chart and in the footer. Now each view names its
+datasets in `ViewDefinition.datasets`, and the footer is the page's one source line: "Source: Gaza daily reports and
+Killed in Gaza, Tech for Palestine" or "Source: Gaza daily reports, Tech for Palestine". `SourceNote` and the source
+slots of `KpiCard` and `ChartFrame` are removed. Without the source line, the KPI card `min-height` drops from
+24.5rem/22rem to 19.5rem/18.5rem: the tallest card measures 19.25rem at 320 px and 18.31rem from 640 px. On
+`pnpm preview` at 320, 360, 639, 640, 1024 and 1440 px on both routes, layout shift is 0, there is no horizontal
+scroll, and "Tech for Palestine" appears once per page. The Gaza demographics view now differs from `main` by design:
+no source lines in the card and charts, and a shorter card.
+
+- [x] The source is named once per page, in the footer, with the current view's datasets.
+- [x] The KPI card swap causes no layout shift at any width with the lower `min-height`.
+
 ## Done when (roadmap)
 
 - [ ] The view is live on the Pages URL, readable at 360 px with no horizontal scroll, and its figures match the

@@ -8,5 +8,6 @@ export const view: ViewDefinition = {
   id: 'gaza-daily-reports',
   label: 'Gaza over time',
   title: 'Gaza over time',
+  datasets: 'Gaza daily reports',
   Component: GazaDailyReportsView,
 };

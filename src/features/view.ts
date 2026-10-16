@@ -9,6 +9,8 @@ export interface ViewDefinition {
   label: string;
   // First part of the document title: `<title> · Witness`.
   title: string;
+  // The datasets the view shows, named once in the footer's source line, e.g. "Gaza daily reports".
+  datasets: string;
   // The view itself; it takes no props.
   Component: ComponentType;
 }

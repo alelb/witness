@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { ChartFrame, DATA_PORTAL_URL, formatIsoDate, SourceNote } from '../../components';
+import { ChartFrame, formatIsoDate } from '../../components';
 import {
   TimeSeriesChart,
   type TimeSeriesMode,
@@ -67,7 +67,6 @@ export default function DailyReportsChart({ months, latest, skippedRows }: Daily
         </div>
       }
       details={<MonthTable months={months} latest={latest} skippedRows={skippedRows} />}
-      source={<SourceNote datasetName="Gaza daily reports" href={DATA_PORTAL_URL} />}
     >
       <TimeSeriesChart title={TITLE} points={toPoints(months, latest, mode)} mode={mode} />
     </ChartFrame>

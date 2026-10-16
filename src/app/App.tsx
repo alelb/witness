@@ -21,6 +21,7 @@ export function App({ views = registeredViews }: { views?: readonly ViewDefiniti
   return (
     <Layout
       nav={views.length > 1 ? <ViewNav views={views} currentId={route.view.id} /> : undefined}
+      datasets={route.view.datasets}
     >
       <Component key={route.view.id} />
     </Layout>

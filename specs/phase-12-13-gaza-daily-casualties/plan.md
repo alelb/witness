@@ -68,7 +68,7 @@ tooltip content as pure functions, `null` points draw no bar.
 6.3 `MonthTable.tsx` + `.module.css`: `<details>` "Figures by month"; stacked list below 640 px, table from 640 px
 (`min-width` query only); "No report", "(to 14 Oct)", `spansFrom` and `skippedRows` notes.
 6.4 `GazaDailyReportsView.tsx` + `.module.css`: `useDataset('gaza-daily-reports')`, `StateBoundary`, `KpiCard` (total,
-date, injured aside, `SourceNote`), and the lazy chart with Retry from 5.1.
+date, injured aside), and the lazy chart with Retry from 5.1.
 6.5 `index.ts`: export the `view` (`id: 'gaza-daily-reports'`, label and title "Gaza over time").
 6.6 `src/app/views.ts`: add `gazaDailyReports.view` as the second entry.
 6.7 Tests: `GazaDailyReportsView.test.tsx` (loading, error with Retry, empty, KPI figures and date, injured aside

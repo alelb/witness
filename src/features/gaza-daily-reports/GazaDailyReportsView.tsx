@@ -2,12 +2,10 @@ import { Suspense } from 'react';
 import {
   ChartFrameSkeleton,
   ChartsErrorBoundary,
-  DATA_PORTAL_URL,
   formatCount,
   formatIsoDate,
   KpiCard,
   KpiCardSkeleton,
-  SourceNote,
   StateBoundary,
   useRetryableLazy,
 } from '../../components';
@@ -60,7 +58,6 @@ export function GazaDailyReportsView() {
                   </p>
                 )
               }
-              footer={<SourceNote datasetName="Gaza daily reports" href={DATA_PORTAL_URL} />}
             />
             <ChartsErrorBoundary key={chart.attempt} onRetry={chart.retry}>
               <Suspense fallback={<ChartSkeleton />}>

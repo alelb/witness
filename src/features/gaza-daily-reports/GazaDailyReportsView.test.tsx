@@ -73,7 +73,7 @@ describe('GazaDailyReportsView', () => {
     expect(screen.queryByRole('figure')).not.toBeInTheDocument();
   });
 
-  it('shows the latest reported total, its date, the injured aside and the source', async () => {
+  it('shows the latest reported total, its date and the injured aside, with no source note', async () => {
     mockDataset({ data: DATA });
     render(<GazaDailyReportsView />);
     const card = screen.getByRole('figure', { name: LABEL });
@@ -82,9 +82,8 @@ describe('GazaDailyReportsView', () => {
       within(card).getByText('From Gaza daily reports, last updated 14 January 2024.'),
     ).toBeInTheDocument();
     expect(card.querySelector(`.${kpiStyles.aside}`)).toHaveTextContent(/^56,000 injured$/);
-    expect(card.lastElementChild).toHaveTextContent(
-      /^Source: Gaza daily reports, Tech for Palestine$/,
-    );
+    expect(card.lastElementChild).toHaveTextContent(/^56,000 injured$/);
+    expect(within(card).queryByText(/Source:/)).not.toBeInTheDocument();
     // The card first, then the chart.
     const chart = await screen.findByRole('figure', { name: CHART_TITLE });
     expect(screen.getAllByRole('figure')).toEqual([card, chart]);

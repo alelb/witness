@@ -10,10 +10,8 @@ export interface ChartFrameProps {
   rows?: number;
   /** Controls for the chart (e.g. a mode toggle), between the description and the plot. */
   controls?: ReactNode;
-  /** Extra content between the plot and the source, e.g. a collapsible data table. */
+  /** Extra content below the plot, e.g. a collapsible data table. */
   details?: ReactNode;
-  /** A `SourceNote`. */
-  source: ReactNode;
   /** The chart. */
   children: ReactNode;
 }
@@ -25,7 +23,7 @@ function plotProps(rows: number | undefined): { className: string; style?: CSSPr
     : { className: `${styles.plot}`, style: { '--rows': rows } as CSSProperties };
 }
 
-// Library-agnostic chart wrapper: title, plot area, and source. The title is also a heading, for heading navigation.
+// Library-agnostic chart wrapper: title, description, and plot area; the source is named once, in the footer. The title is also a heading, for heading navigation.
 // The summary is the figure's accessible description, visually hidden: the bars already carry their labels and counts.
 export function ChartFrame({
   title,
@@ -34,7 +32,6 @@ export function ChartFrame({
   rows,
   controls,
   details,
-  source,
   children,
 }: ChartFrameProps) {
   const titleId = useId();
@@ -52,7 +49,6 @@ export function ChartFrame({
       {controls !== undefined && <div className={styles.controls}>{controls}</div>}
       <div {...plotProps(rows)}>{children}</div>
       {details !== undefined && <div className={styles.details}>{details}</div>}
-      <div className={styles.source}>{source}</div>
     </figure>
   );
 }
@@ -68,7 +64,7 @@ export interface ChartFrameSkeletonProps {
 
 /**
  * Placeholder with the frame's container, plot height, and the line heights of its title, one-line description, and
- * source: swapping it for the frame causes no layout shift.
+ * any controls or details: swapping it for the frame causes no layout shift.
  */
 export function ChartFrameSkeleton({
   rows,
@@ -83,9 +79,6 @@ export function ChartFrameSkeleton({
       {controls && <span className={`${styles.bar} ${styles.barShort} ${styles.barTapTarget}`} />}
       <div {...plot} className={`${plot.className} ${styles.plotSkeleton}`} />
       {details && <span className={`${styles.bar} ${styles.barShort} ${styles.barTapTarget}`} />}
-      <div className={styles.source}>
-        <span className={`${styles.bar} ${styles.barShort} ${styles.barTapTarget}`} />
-      </div>
     </div>
   );
 }

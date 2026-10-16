@@ -37,7 +37,7 @@ src/
   features/
     gaza-demographics/   # a "view": composes hooks + components for one dataset
     ...                  # future views: gaza-daily, west-bank, ...
-  components/       # reusable UI: KpiCard, ChartFrame, SourceNote, StateBoundary
+  components/       # reusable UI: KpiCard, ChartFrame, StateBoundary, SiteFooter
   hooks/            # useDataset(): talks to the worker, exposes {status, data, error}
   app/              # shell, routing between views, layout
 ```

@@ -1,4 +1,4 @@
-/* A column that fills its grid cell: in a row of frames, the last child (the source) sits at the bottom of each. */
+/* A column that fills its grid cell. */
 .frame {
   display: flex;
   flex-direction: column;
@@ -40,15 +40,6 @@
   min-width: 0;
 }
 
-.frame > :last-child {
-  margin-top: auto;
-}
-
-.source {
-  padding-top: var(--space-3);
-  border-top: 1px solid var(--color-border);
-}
-
 @media (min-width: 640px) {
   .frame {
     padding: var(--space-6);
@@ -77,7 +68,7 @@
   height: calc(var(--font-size-sm) * var(--line-height));
 }
 
-/* A tap target sets the height of the source line, a controls row, and a details summary. */
+/* A tap target sets the height of a controls row and a details summary. */
 .barTapTarget {
   height: var(--tap-target);
 }

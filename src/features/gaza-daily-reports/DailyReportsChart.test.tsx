@@ -29,7 +29,7 @@ describe('DailyReportsChart', () => {
     vi.unstubAllGlobals();
   });
 
-  it('is a figure titled "Killed over time", with the date, the source and the table note', () => {
+  it('is a figure titled "Killed over time", with the date and the table note, and no source note', () => {
     renderChart();
     const figure = screen.getByRole('figure', { name: TITLE });
     expect(
@@ -37,9 +37,7 @@ describe('DailyReportsChart', () => {
         'Gaza daily reports, last updated 14 January 2024. Days without a report are counted in the table.',
       ),
     ).toBeInTheDocument();
-    expect(figure.lastElementChild).toHaveTextContent(
-      /^Source: Gaza daily reports, Tech for Palestine$/,
-    );
+    expect(within(figure).queryByText(/Source:/)).not.toBeInTheDocument();
   });
 
   it('starts per month, and the toggle switches the mode, aria-pressed and the summary', () => {

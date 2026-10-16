@@ -91,7 +91,8 @@ spansFrom: string | null }`.
 - `<section aria-label="Gaza over time">`, mobile first, same structure as the Gaza demographics view: KPI card first,
   then the chart frame, in one column.
 - **KPI card:** label "People killed in Gaza since 7 October 2023", value `latestReport.killedCum`; description "From
-  Gaza daily reports, last updated 14 October 2026."; aside "175,440 injured"; `SourceNote` "Gaza daily reports".
+  Gaza daily reports, last updated 14 October 2026."; aside "175,440 injured". (Owner review: no source note in the card or the chart; the footer cites
+  the view's datasets once, "Source: Gaza daily reports, Tech for Palestine".)
   Without an injured total, no aside.
 - **Chart frame** (lazy chunk, loaded and retried like the demographics charts):
   - Title "Killed over time"; a two-button toggle "Per month" / "Cumulative" (`aria-pressed`, tap targets ≥ 44 px),

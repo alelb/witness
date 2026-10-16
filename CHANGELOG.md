@@ -2,6 +2,11 @@
 
 All notable changes to Witness, grouped by date (newest first).
 
+## 2026-10-16
+
+- Name the data source once per page, in the footer, with the current view's datasets, instead of on every card and
+  chart; lower the KPI card's reserved height to match (owner review).
+
 ## 2026-10-15
 
 - Add the Phase 12–13 Gaza daily casualties spec (requirements, plan, validation).

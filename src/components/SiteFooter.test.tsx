@@ -11,6 +11,18 @@ describe('SiteFooter', () => {
     );
   });
 
+  it('names the datasets in the source line when given', () => {
+    render(<SiteFooter datasets="Gaza daily reports" />);
+    expect(screen.getByText(/^Source: Gaza daily reports,/)).toHaveTextContent(
+      'Source: Gaza daily reports, Tech for Palestine',
+    );
+  });
+
+  it('falls back to "Data:" without datasets', () => {
+    render(<SiteFooter />);
+    expect(screen.getByText(/^Data:/)).toHaveTextContent('Data: Tech for Palestine');
+  });
+
   it('shows the limitations note', () => {
     render(<SiteFooter />);
     expect(screen.getByText(/reported figures may undercount the real toll/i)).toBeInTheDocument();

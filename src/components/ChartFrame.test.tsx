@@ -13,7 +13,6 @@ function renderFrame() {
       description={<p>Killed in Gaza list, last updated 27 July 2026.</p>}
       summary={SUMMARY}
       rows={2}
-      source={<p>Source: Killed in Gaza</p>}
     >
       <div data-testid="chart" />
     </ChartFrame>,
@@ -26,19 +25,12 @@ describe('ChartFrame', () => {
     const figure = screen.getByRole('figure', { name: TITLE });
     expect(figure).toHaveAccessibleDescription(SUMMARY);
     expect(within(figure).getByTestId('chart')).toBeInTheDocument();
-    expect(within(figure).getByText('Source: Killed in Gaza')).toBeInTheDocument();
   });
 
   it('titles the figure with a heading, for heading navigation', () => {
     renderFrame();
     const heading = screen.getByRole('heading', { level: 2, name: TITLE });
     expect(screen.getByRole('figure', { name: TITLE })).toContainElement(heading);
-  });
-
-  it('keeps the source note as the last child of the frame', () => {
-    renderFrame();
-    const figure = screen.getByRole('figure', { name: TITLE });
-    expect(figure.lastElementChild).toHaveTextContent('Source: Killed in Gaza');
   });
 
   it('keeps the summary for screen readers only, with no data table', () => {
@@ -61,7 +53,6 @@ describe('ChartFrame without rows', () => {
             <summary>Figures by month</summary>
           </details>
         }
-        source={<p>Source: Gaza daily reports</p>}
       >
         <div data-testid="chart" />
       </ChartFrame>,
@@ -75,7 +66,7 @@ describe('ChartFrame without rows', () => {
     expect(plot).not.toHaveAttribute('style');
   });
 
-  it('renders the controls before the plot and the details between the plot and the source', () => {
+  it('renders the controls before the plot and the details last, after the plot', () => {
     renderTimeFrame();
     const figure = screen.getByRole('figure', { name: 'Killed over time' });
     const children = [...figure.children];
@@ -84,7 +75,7 @@ describe('ChartFrame without rows', () => {
     const details = children.findIndex((el) => el.contains(screen.getByText('Figures by month')));
     expect(controls).toBeLessThan(plot);
     expect(details).toBe(plot + 1);
-    expect(figure.lastElementChild).toHaveTextContent('Source: Gaza daily reports');
+    expect(details).toBe(children.length - 1);
   });
 
   it('renders no controls or details wrappers without them', () => {
@@ -115,13 +106,13 @@ describe('ChartFrameSkeleton', () => {
     const plot = root?.querySelector(`.${styles.plotFixed}`);
     expect(plot).toHaveClass(`${styles.plot}`, `${styles.plotSkeleton}`);
     expect(plot).not.toHaveAttribute('style');
-    // Title, description, controls, details, and source bars.
-    expect(root?.querySelectorAll(`.${styles.bar}`)).toHaveLength(5);
-    expect(root?.querySelectorAll(`.${styles.barTapTarget}`)).toHaveLength(3);
+    // Title, description, controls, and details bars.
+    expect(root?.querySelectorAll(`.${styles.bar}`)).toHaveLength(4);
+    expect(root?.querySelectorAll(`.${styles.barTapTarget}`)).toHaveLength(2);
   });
 
-  it('has only the source tap-target bar by default', () => {
+  it('has no tap-target bar by default', () => {
     const { container } = render(<ChartFrameSkeleton rows={2} />);
-    expect(container.querySelectorAll(`.${styles.barTapTarget}`)).toHaveLength(1);
+    expect(container.querySelectorAll(`.${styles.barTapTarget}`)).toHaveLength(0);
   });
 });

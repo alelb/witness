@@ -54,6 +54,23 @@ describe('App', () => {
     expect(screen.getByRole('contentinfo')).toHaveTextContent(/may undercount the real toll/i);
   });
 
+  it("cites the current view's datasets once, in the footer", () => {
+    render(<App views={fakeViews} />);
+    const footer = screen.getByRole('contentinfo');
+    expect(within(footer).getByText(/^Source: First dataset,/)).toBeInTheDocument();
+    act(() => navigateTo('#/second'));
+    expect(within(footer).getByText(/^Source: Second dataset,/)).toBeInTheDocument();
+    expect(screen.getAllByText(/Source:/)).toHaveLength(1);
+  });
+
+  it('names the Gaza demographics datasets in the footer by default', () => {
+    render(<App />);
+    expect(screen.getByRole('contentinfo')).toHaveTextContent(
+      /Source: Gaza daily reports and Killed in Gaza, Tech for Palestine/,
+    );
+    expect(within(screen.getByRole('main')).queryByText(/Source:/)).not.toBeInTheDocument();
+  });
+
   it('shows the Views menu with both registered views, Gaza demographics by default', () => {
     render(<App />);
     const nav = screen.getByRole('navigation', { name: 'Views' });
